@@ -1,0 +1,1484 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HIS – Hogares, Instalaciones y Soluciones</title>
+
+<!--
+  ╔══════════════════════════════════════════════════════╗
+  ║  TIPOGRAFIA — como cambiarla facilmente             ║
+  ║                                                      ║
+  ║  Hay DOS fuentes en uso:                             ║
+  ║  1. "Playfair Display" → titulos y encabezados       ║
+  ║  2. "Lato"             → textos y parrafos           ║
+  ║                                                      ║
+  ║  Para cambiarlas:                                    ║
+  ║  a) Ve a https://fonts.google.com                    ║
+  ║  b) Busca la fuente, haz clic en "Get font"          ║
+  ║     y copia el enlace <link> que te dan.             ║
+  ║  c) Pega ese enlace reemplazando el de abajo.        ║
+  ║  d) En :root (mas abajo), edita los valores de:      ║
+  ║       --fw-display: 'NombreTitulo', serif;           ║
+  ║       --fw-body:    'NombreTexto', sans-serif;       ║
+  ║  Todo el sitio se actualiza solo.                    ║
+  ╚══════════════════════════════════════════════════════╝
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+
+<style>
+  /* ═══════════════════════════════════════════
+     VARIABLES GLOBALES
+     Cambia colores y fuentes desde aqui.
+  ═══════════════════════════════════════════ */
+  
+  :root {
+  --primary-dark: #001335;
+  --primary: #112349;
+  --secondary: #336699;
+  --accent: #71B2E2;
+  --light: #CAE8FF;
+  --background: #F8FBFF;
+
+  --text: #0b1a33;
+  --white: #ffffff;
+
+  --fw-display: 'Playfair Display', Georgia, serif;
+  --fw-body: 'Lato', Helvetica, sans-serif;
+
+  --shadow: 0 8px 32px rgba(0,19,53,.15);
+  --radius: 12px;
+  --transition: .35s cubic-bezier(.4,0,.2,1);
+  --whatsapp: #25D366;
+
+  }
+
+  /* ── RESET ─────────────────────────────── */
+  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--fw-body); background: var(--background); color: var(--text); overflow-x: hidden; }
+  img  { display:block; max-width:100%; }
+  a    { text-decoration:none; color:inherit; }
+  ul   { list-style:none; }
+  ::-webkit-scrollbar { width:8px; }
+  ::-webkit-scrollbar-track { background: var(--background); }
+  ::-webkit-scrollbar-thumb { background: var(--secondary); border-radius:4px; }
+
+  /* ═══════════════════════════════════════════
+     HEADER
+  ═══════════════════════════════════════════ */
+  header {
+    position: fixed; top:0; left:0; width:100%; z-index:1000;
+    background: rgba(0,19,53,.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(113,178,226,.18);
+    transition: var(--transition);
+  }
+  nav {
+    max-width:1280px; margin:0 auto;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:4px 24px; gap:20px;
+  }
+  .brand { display:flex; align-items:center; gap:12px; flex-shrink:0; }
+
+  /*
+    LOGO DEL HEADER
+    Se usa el logo con fondo transparente como imagen.
+    El circulo y gradiente se eliminaron — el logo ya tiene su propio diseño.
+  */
+  /*
+    LOGO DEL HEADER (nav)
+    - height:64px → tamaño actual. Cámbialo para agrandar/achicar.
+    - filter:brightness(0) invert(1) → hace el logo blanco (ideal sobre fondo oscuro).
+      Para fondo claro: quita el filter y usa el logo con sus colores originales.
+  */
+  .brand-logo {
+    height:80px; width:auto;
+    display:block;
+    filter: brightness(0) invert(1);
+  }
+  /* .brand-name ya no se muestra; el logo incluye el nombre.
+     Si quisieras mostrarlo igual, vuelve a añadirlo con display:block. */
+  .brand-name { display:none; }
+  .nav-links { display:flex; align-items:center; gap:4px; }
+  .nav-links a {
+    font-size:13px; color:var(--light);
+    padding:7px 12px; border-radius:6px;
+    transition:var(--transition); letter-spacing:.02em;
+  }
+  .nav-links a:hover { background:rgba(113,178,226,.15); color:var(--accent); }
+  .nav-wa {
+    display:flex; align-items:center; gap:8px;
+    background:var(--whatsapp); color:#fff;
+    padding:9px 16px; border-radius:8px;
+    font-size:13px; font-weight:700;
+    transition:var(--transition); flex-shrink:0;
+  }
+  .nav-wa:hover { background:#1ebe5d; transform:translateY(-1px); }
+  .nav-wa svg { width:17px; height:17px; }
+  .hamburger {
+    display:none; background:none; border:none; cursor:pointer;
+    flex-direction:column; gap:5px; padding:4px;
+  }
+  .hamburger span {
+    display:block; width:24px; height:2px;
+    background:var(--accent); border-radius:2px; transition:var(--transition);
+  }
+  .hamburger.open span:nth-child(1) { transform:translateY(7px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity:0; }
+  .hamburger.open span:nth-child(3) { transform:translateY(-7px) rotate(-45deg); }
+  .mobile-menu {
+    display:none; flex-direction:column;
+    background:rgba(0,19,53,.98);
+    border-top:1px solid rgba(113,178,226,.15);
+    padding:16px 24px 24px;
+  }
+  .mobile-menu a {
+    color:var(--light); padding:12px 0;
+    border-bottom:1px solid rgba(113,178,226,.12);
+    font-size:15px; transition:var(--transition);
+  }
+  .mobile-menu a:hover { color:var(--accent); padding-left:8px; }
+  .mobile-menu .nav-wa { margin-top:16px; justify-content:center; }
+  @media(max-width:900px) {
+    .nav-links, .nav-wa { display:none; }
+    .hamburger { display:flex; }
+    .mobile-menu.open { display:flex; }
+  }
+
+  /* ═══════════════════════════════════════════
+     HERO SLIDER
+  ═══════════════════════════════════════════ */
+  .hero {
+    position:relative; width:100%; height:100vh; min-height:600px; overflow:hidden;
+  }
+  .slides { display:flex; height:100%; transition:transform .8s cubic-bezier(.77,0,.18,1); }
+  .slide {
+    min-width:100%; height:100%; position:relative; flex-shrink:0;
+    display:flex; align-items:center; justify-content:center;
+  }
+
+  /*
+    IMAGENES DEL SLIDER
+    Cambia la ruta dentro de url('') por la ruta de tu imagen.
+    Si la url esta vacia, se muestra el color de fondo (background-color).
+    Ejemplo: background-image: url('imagenes/slide1.jpg');
+  */
+  /*
+    IMAGENES DEL SLIDER
+    Cambia la ruta dentro de url('') por la ruta de tu imagen.
+    Si la url está vacía, se muestra el color de fondo (background-color).
+    Los fondos claros (#CAE8FF, #F8FBFF) permiten ver el logo con sus colores azules originales.
+    Para volver a fondos oscuros: usa #001335, #112349, #1a3560 y añade filter:invert(1) al .slide-logo.
+    Ejemplo: background-image: url('imagenes/slide1.jpg');
+  */
+.slide-1,
+.slide-2,
+.slide-3 {
+  position: relative;
+  background-color: #CAE8FF;
+}
+
+/* Imagen de fondo */
+/* ═══════════════════════════════════════════
+   FONDOS DEL SLIDER
+   Imagen desenfocada de fondo + imagen original
+   completa en el centro.
+══════════════════════════════════════════ */
+
+/* Fondo desenfocado */
+.slide-1::before,
+.slide-2::before,
+.slide-3::before {
+  content: "";
+  position: absolute;
+  inset: -30px;
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  filter: blur(10px);
+  transform: scale(1.08);
+
+  opacity: 0.5;
+  z-index: 0;
+}
+
+/* Imagen principal, sin deformarla */
+.slide-1::after,
+.slide-2::after,
+.slide-3::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  opacity: 0.7;
+  z-index: 1;
+}
+
+/* ── Imagen de cada slide ── */
+
+.slide-1::before,
+.slide-1::after {
+  background-image: url('img/Galeria/SlideCocina.png');
+}
+
+.slide-2::before,
+.slide-2::after {
+  background-image: url('img/Galeria/slideCocina2.png');
+}
+
+.slide-3::before,
+.slide-3::after {
+  background-image: url('img/Galeria/slideArmario.png');
+}
+
+/* Overlay muy suave para que el texto sea legible sin tapar el fondo claro */
+.slide-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(202,232,255,.1),
+    rgba(202,232,255,.25)
+  );
+  z-index: 2;
+}
+
+.slide-content {
+  position: relative;
+  z-index: 3;
+  text-align: center;
+  color: #fff;
+  animation: fadeUp .9s ease both;
+  padding: 24px;
+}
+
+/*
+    LOGO EN EL SLIDER
+    Para usar imagen de logo dentro del circulo:
+    Reemplaza el texto "HIS" por: <img src="tu-logo.png" style="width:100%;height:100%;object-fit:cover;">
+  */
+  /*
+    LOGO EN EL SLIDER
+    - width:260px → tamaño de los slides 2 y 3.
+    - Sin filter: se muestra con sus colores azules originales sobre fondo claro.
+    - Si usas fondo oscuro: agrega filter:brightness(0) invert(1) para hacerlo blanco.
+  */
+  .slide-logo {
+    width:390px; height:auto;
+    margin:0 auto 24px;
+    display:block;
+    filter: drop-shadow(0 4px 16px rgba(0,19,53,.18));
+  }
+  /*
+    LOGO GRANDE — solo slide 1.
+    - min(70vw, 640px): ocupa ~70% del ancho del slider pero nunca más de 640px.
+      Cambia el primer valor para ajustar el porcentaje, y el segundo para el máximo.
+    - margin-bottom:0: el slide 1 no tiene h1/p debajo, así que no necesita separación.
+  */
+  .slide-1 .slide-logo {
+    width: min(70vw, 320x);
+    margin-bottom:0;
+    filter: drop-shadow(0 6px 28px rgba(0,19,53,.15));
+  }
+  .slide-content h1 {
+    font-family:var(--fw-display); font-size:clamp(36px,7vw,80px);
+    font-weight:900; color:var(--primary);
+    text-shadow:0 2px 12px rgba(202,232,255,.8); line-height:1.1;
+  }
+  .slide-content p {
+    font-size:clamp(14px,2vw,18px); color:var(--secondary);
+    margin-top:12px; letter-spacing:.12em; text-transform:uppercase; font-weight:600;
+  }
+  .slider-btn {
+    position:absolute; top:50%; transform:translateY(-50%);
+    width:52px; height:52px; border-radius:50%;
+    /* Botones del slider: fondo semitransparente azul medio.
+       Para cambiar: edita el background de .slider-btn */
+    background:rgba(51,102,153,.18); backdrop-filter:blur(6px);
+    border:1px solid rgba(51,102,153,.35);
+    cursor:pointer; display:flex; align-items:center; justify-content:center;
+    color:var(--primary); font-size:22px; transition:var(--transition); z-index:10;
+  }
+  .slider-btn:hover { background:rgba(51,102,153,.4); }
+  .slider-btn.prev { left:24px; }
+  .slider-btn.next { right:24px; }
+  .slider-dots {
+    position:absolute; bottom:28px; left:50%; transform:translateX(-50%);
+    display:flex; gap:10px; z-index:10;
+  }
+  .slider-dots span {
+    width:10px; height:10px; border-radius:50%;
+    background:rgba(51,102,153,.35); cursor:pointer; transition:var(--transition);
+  }
+  .slider-dots span.active { background:var(--primary); transform:scale(1.3); }
+  @keyframes fadeUp {
+    from { opacity:0; transform:translateY(32px); }
+    to   { opacity:1; transform:translateY(0); }
+  }
+
+  /* ═══════════════════════════════════════════
+     LAYOUT PRINCIPAL: columna central + aside
+  ═══════════════════════════════════════════ */
+  .page-layout {
+    display:grid;
+    grid-template-columns: 1fr 340px;
+    max-width:1280px; margin:0 auto;
+    gap:0 36px; padding:0 24px;
+    align-items:start;
+  }
+  .main-col { min-width:0; }
+  .aside-col {
+    position:sticky; top:88px;
+  }
+  @media(max-width:1024px) {
+    .page-layout { grid-template-columns:1fr; }
+    .aside-col { position:static; grid-row:auto; }
+  }
+
+  /* ═══════════════════════════════════════════
+     UTILIDADES COMUNES DE SECCIóN
+  ═══════════════════════════════════════════ */
+  .section-wrap { padding:68px 0; }
+  .section-title {
+    font-family:var(--fw-display); font-size:clamp(22px,3.2vw,36px);
+    font-weight:700; color:var(--primary); margin-bottom:36px;
+    display:inline-block; position:relative;
+  }
+  .section-title::after {
+    content:''; display:block; width:48px; height:3px;
+    background:linear-gradient(90deg, var(--secondary), var(--accent));
+    margin-top:11px; border-radius:2px;
+  }
+  .section-title.centered { display:block; text-align:center; }
+  .section-title.centered::after { margin-left:auto; margin-right:auto; }
+  .section-divider {
+    width:100%; height:1px;
+    background:linear-gradient(90deg, transparent, rgba(113,178,226,.3), transparent);
+  }
+
+  /* ═══════════════════════════════════════════
+     TARJETAS: QUIENES / QUE / COMO
+  ═══════════════════════════════════════════ */
+  .about-wrap { background:var(--white); }
+  .cards-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:22px; }
+  @media(max-width:768px) { .cards-grid { grid-template-columns:1fr; } }
+
+  .card {
+    background:var(--background); border-radius:var(--radius);
+    overflow:hidden; box-shadow:var(--shadow);
+    transition:var(--transition); border:1px solid rgba(113,178,226,.22);
+  }
+  .card:hover { transform:translateY(-6px); box-shadow:0 18px 48px rgba(0,19,53,.18); }
+
+  /*
+    IMAGENES DE LAS TARJETAS
+    Cada .card-img es un div que muestra la imagen como fondo.
+    Para cambiar la imagen de cada tarjeta, edita el style="background-image: url('')"
+    directamente en el HTML de abajo, o edita las reglas #card-img-* en el CSS.
+    Ejemplo: style="background-image: url('fotos/equipo.jpg')"
+  */
+  .card-img {
+    width:100%; height:210px;
+    background-color:var(--light);
+    background-size:cover; background-position:center;
+  }
+  /* Imagen ya asignada — viene del archivo subido */
+  #card-img-somos { background-image: url('img/Galeria/puertadecocina.jpg'); }
+
+  .card-body { padding:24px; }
+  .card-body h3 {
+    font-family:var(--fw-display); font-size:19px; font-weight:700;
+    color:var(--primary); margin-bottom:11px;
+  }
+  .card-body p { font-size:14px; line-height:1.8; color:#1a3560; }
+  .card-body a { color:var(--secondary); font-weight:700; border-bottom:1px solid var(--accent); transition:var(--transition); }
+  .card-body a:hover { color:var(--primary); }
+
+  /* ═══════════════════════════════════════════
+     VIDEO
+     Fondo actual: #CAE8FF (tono claro de la paleta).
+     Para cambiar a oscuro: reemplaza #CAE8FF por var(--primary) y
+     cambia .section-title al color var(--background).
+  ═══════════════════════════════════════════ */
+  .video-wrap-outer { background:#CAE8FF; padding:68px 0; }
+  .video-wrap-outer .section-title { color:var(--primary); }
+  .video-wrap-outer .section-title::after { background:linear-gradient(90deg, var(--secondary), var(--primary)); }
+  .video-container {
+    max-width:800px;
+    border-radius:var(--radius); overflow:hidden;
+    box-shadow:0 20px 60px rgba(0,0,0,.5);
+    border:2px solid rgba(201,168,124,.3);
+    aspect-ratio:16/9; background:#000;
+  }
+  .video-container iframe { width:100%; height:100%; border:none; display:block; }
+  .video-placeholder {
+    width:100%; height:100%; min-height:280px;
+    display:flex; flex-direction:column;
+    align-items:center; justify-content:center;
+    background:linear-gradient(135deg, var(--accent), var(--light));
+    color:var(--primary); font-family:var(--fw-display); font-size:18px;
+    gap:14px; padding:24px; text-align:center;
+  }
+  .video-placeholder svg { width:52px; height:52px; color:var(--secondary); }
+  .video-placeholder small { font-family:var(--fw-body); font-size:11.5px; opacity:.6; }
+
+  /* ═══════════════════════════════════════════
+     GALERIA DE FOTOS (productos / servicios)
+  ═══════════════════════════════════════════ */
+  .gallery-section { padding:68px 0; }
+  .gallery-section.alt { background:var(--white); }
+
+  .photo-gallery {
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:14px;
+  }
+  @media(max-width:900px) { .photo-gallery { grid-template-columns:repeat(3,1fr); } }
+  @media(max-width:560px) { .photo-gallery { grid-template-columns:repeat(2,1fr); } }
+
+  .gallery-item {
+    border-radius:var(--radius); overflow:hidden;
+    box-shadow:var(--shadow);
+    border:1px solid rgba(113,178,226,.22);
+    transition:var(--transition);
+    background:var(--background);
+  }
+  .gallery-item:hover { transform:translateY(-5px) scale(1.025); box-shadow:0 14px 40px rgba(0,19,53,.18); }
+
+  /*
+    IMAGENES DE LA GALERIA
+    Cada .gallery-thumb es un div con fondo.
+    Para asignar una imagen, agrega o edita:
+      style="background-image: url('tu-imagen.jpg')"
+    dentro del <div class="gallery-thumb"> correspondiente en el HTML.
+    Las clases especiales (ej: .cocinas-prod) ya tienen imagen asignada en el CSS.
+  */
+  .gallery-thumb {
+    height:148px;
+    background-color:var(--light);
+    background-size:cover; background-position:center;
+  }
+
+  .gallery-label {
+    padding:11px 13px; text-align:center;
+    font-family:var(--fw-display); font-size:13px; font-weight:700;
+    color:var(--primary); line-height:1.3;
+  }
+
+  /* ═══════════════════════════════════════════
+     ASIDE — BLOG DE NOTICIAS
+  ═══════════════════════════════════════════ */
+  aside#noticias { padding:68px 0; }
+
+  .aside-inner {
+    background:var(--white); border-radius:var(--radius);
+    box-shadow:var(--shadow); border:1px solid rgba(113,178,226,.25);
+    overflow:hidden;
+  }
+  .aside-header {
+    /* Blog header — fondo #CAE8FF (claro) con texto oscuro.
+       Para volver a oscuro: background:var(--primary); color:var(--background) */
+    background:#CAE8FF; padding:20px 20px 16px;
+    font-family:var(--fw-display); font-size:19px; font-weight:700;
+    color:var(--primary); letter-spacing:.03em;
+  }
+  .aside-header::after {
+    content:''; display:block; width:32px; height:2px;
+    background:var(--secondary); margin-top:8px; border-radius:2px;
+  }
+  .news-item {
+    display:flex; gap:13px; padding:15px 17px;
+    border-bottom:1px solid rgba(113,178,226,.18);
+    transition:var(--transition);
+  }
+  .news-item:last-child { border-bottom:none; }
+  .news-item:hover { background:var(--background); cursor:pointer; }
+  a.news-item { display:flex; }
+
+  /*
+    IMAGENES DE LAS NOTICIAS
+    Cada .news-thumb es un div con fondo.
+    Para agregar imagen: edita style="background-image: url('')"
+    en cada .news-thumb del HTML.
+  */
+  .news-thumb {
+    width:74px; height:74px; flex-shrink:0;
+    border-radius:8px;
+    background-color:var(--light);
+    background-size:cover; background-position:center;
+  }
+  .news-info { flex:1; min-width:0; }
+  .news-tag-pill {
+    display:inline-block; font-size:10px; font-weight:700;
+    text-transform:uppercase; letter-spacing:.06em;
+    background:var(--accent); color:var(--primary);
+    padding:2px 8px; border-radius:20px; margin-bottom:5px;
+  }
+  .news-info h4 {
+    font-family:var(--fw-display); font-size:13.5px; font-weight:700;
+    color:var(--primary); line-height:1.35; margin-bottom:4px;
+  }
+  .news-info p { font-size:12px; color:#1a3560; line-height:1.6; }
+  .news-date { font-size:11px; color:var(--secondary); font-weight:700; margin-top:4px; }
+
+  /* ═══════════════════════════════════════════
+     WHATSAPP FLOTANTE
+  ═══════════════════════════════════════════ */
+  .wa-float {
+    position:fixed; bottom:148px; right:48px; z-index:999;
+    width:58px; height:58px; border-radius:50%;
+    background:var(--whatsapp);
+    display:flex; align-items:center; justify-content:center;
+    box-shadow:0 6px 24px rgba(37,211,102,.45);
+    transition:var(--transition); animation:pulse 2.5s infinite;
+  }
+  .wa-float:hover { transform:scale(1.12); }
+  .wa-float svg { width:30px; height:30px; color:#fff; }
+
+  /*
+    BOTÓN FLOTANTE CATO
+    - Posición: bottom:28px right:28px (esquina inferior derecha, bajo el WA)
+    - Para añadir imagen: edita src="img/cato.png" en el HTML
+    - border: 3px solid var(--accent) → azul medio de la paleta
+  */
+  .cato-float {
+    position:fixed; bottom:28px; right:28px; z-index:999;
+    width:102px; height:102px; border-radius:50%;
+    background:var(--white);
+    border:3px solid var(--accent);
+    box-shadow:0 8px 28px rgba(0,19,53,.22);
+    display:flex; align-items:center; justify-content:center;
+    transition:var(--transition);
+    overflow:hidden;
+    text-decoration:none;
+  }
+  .cato-float:hover { transform:translateY(-5px) scale(1.05); box-shadow:0 14px 35px rgba(0,19,53,.28); }
+  .cato-float img { width:100%; height:100%; object-fit:contain; border-radius:50%; display:block; }
+  /* Placeholder si no hay imagen aún */
+  .cato-float-placeholder {
+    font-size:30px; line-height:1;
+    display:flex; align-items:center; justify-content:center;
+    width:100%; height:100%;
+  }
+  /* Tooltip al hover */
+  .cato-float::before {
+    content:'¿Necesitas ayuda?';
+    position:absolute; right:78px; top:50%; transform:translateY(-50%);
+    background:var(--primary); color:#fff;
+    font-size:12px; font-weight:600; white-space:nowrap;
+    padding:6px 12px; border-radius:8px;
+    opacity:0; pointer-events:none;
+    transition:opacity .2s ease;
+    font-family:var(--fw-body);
+  }
+  .cato-float:hover::before { opacity:1; }
+  @keyframes pulse {
+    0%,100% { box-shadow:0 6px 24px rgba(37,211,102,.45); }
+    50%      { box-shadow:0 6px 36px rgba(37,211,102,.7), 0 0 0 10px rgba(37,211,102,.1); }
+  }
+
+  /* ═══════════════════════════════════════════
+     FOOTER
+  ═══════════════════════════════════════════ */
+  footer {
+    background:var(--primary-dark); color:var(--light);
+    padding:32px 24px 20px;
+    border-top:3px solid var(--secondary);
+  }
+  .footer-inner {
+    max-width:1200px; margin:0 auto;
+    display:grid; grid-template-columns:1fr 1.2fr 1fr;
+    gap:40px; margin-bottom:42px;
+  }
+  .footer-col h5 {
+    font-family:var(--fw-display); font-size:16px; color:var(--accent);
+    margin-bottom:15px; letter-spacing:.04em;
+  }
+  .footer-col ul li { margin-bottom:9px; }
+  .footer-col ul li a { font-size:14px; color:var(--light); transition:var(--transition); }
+  .footer-col ul li a:hover { color:var(--accent); padding-left:5px; }
+  .footer-wa {
+    display:inline-flex; align-items:center; gap:8px;
+    background:var(--whatsapp); color:#fff;
+    padding:9px 14px; border-radius:8px; font-size:13px; font-weight:700;
+    margin-top:10px; transition:var(--transition);
+  }
+  .footer-wa:hover { background:#1ebe5d; }
+  .footer-brand { text-align:center; }
+  /*
+    LOGO EN EL FOOTER
+    - width:180px → tamaño actual. Cámbialo para agrandar/achicar.
+    - filter:brightness(0) invert(1) → blanco sobre fondo oscuro del footer.
+      Para fondo claro en footer: quita el filter y usa el logo original.
+    - El logo ya incluye nombre y slogan, por eso se eliminaron .footer-brand h2 y p.
+  */
+  .footer-brand-logo {
+    width:220px; height:auto;
+    margin:0 auto; display:block;
+    filter: brightness(0) invert(1);
+  }
+  .social-row { display:flex; gap:11px; flex-wrap:wrap; }
+  .social-btn {
+    width:42px; height:42px; border-radius:10px;
+    background:rgba(113,178,226,.08); border:1px solid rgba(113,178,226,.22);
+    display:flex; align-items:center; justify-content:center;
+    color:var(--light); transition:var(--transition);
+  }
+  .social-btn:hover { background:var(--secondary); color:#fff; transform:translateY(-3px); }
+  .social-btn svg { width:20px; height:20px; }
+  .footer-bottom {
+    max-width:1200px; margin:0 auto;
+    border-top:1px solid rgba(113,178,226,.15);
+    padding-top:18px;
+    display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px;
+    font-size:12px; color:rgba(202,232,255,.38);
+  }
+    /* Botón Kommet — esquina inferior izquierda del footer
+     Para añadir el logo: dentro de .kommet-logo-bubble reemplaza
+       <span class="kommet-k">K</span>
+       por <img src="img/Logo_Kommet.png" alt="Kommet">
+     Para cambiar el link: edita href en <a class="kommet-badge">  */
+  .kommet-badge {
+    display:inline-flex; align-items:center; gap:9px;
+    padding:7px 14px 7px 8px; border-radius:30px;
+    background:rgba(113,178,226,.08);
+    border:1px solid rgba(113,178,226,.2);
+    transition:var(--transition); text-decoration:none;
+  }
+  .kommet-badge:hover { background:rgba(113,178,226,.18); border-color:rgba(113,178,226,.4); transform:translateY(-2px); }
+  .kommet-logo-bubble {
+    width:32px; height:32px; border-radius:50%;
+    background:#fff;
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0; box-shadow:0 2px 6px rgba(0,19,53,.18); overflow:hidden;
+  }
+  .kommet-logo-bubble img { width:22px; height:22px; object-fit:contain; display:block; }
+  .kommet-k { font-family:var(--fw-display); font-size:14px; font-weight:900; color:var(--secondary); line-height:1; }
+  .kommet-text { display:flex; flex-direction:column; line-height:1.25; }
+  .kommet-by   { font-size:9px; text-transform:uppercase; letter-spacing:.08em; color:rgba(202,232,255,.45); font-weight:700; }
+  .kommet-name { font-size:13px; font-weight:700; color:var(--light); font-family:var(--fw-display); letter-spacing:.02em; }
+
+  @media(max-width:768px) {
+    .footer-inner { grid-template-columns:1fr; text-align:center; }
+    .social-row { justify-content:center; }
+    .footer-bottom { justify-content:center; text-align:center; }
+  }
+
+  /* ═══════════════════════════════════════════
+     CARRUSEL DE SERVICIOS
+  ═══════════════════════════════════════════ */
+  .carousel-section { padding:68px 0; background:var(--white); }
+
+  .carousel-outer { position:relative; }
+  .carousel-viewport { overflow:hidden; border-radius:var(--radius); }
+  .carousel-track-serv {
+    display:flex; gap:16px;
+    transition:transform .5s cubic-bezier(.4,0,.2,1);
+  }
+  .carousel-card {
+    min-width:200px; flex-shrink:0;
+    border-radius:var(--radius); overflow:hidden;
+    box-shadow:var(--shadow);
+    border:1px solid rgba(49,102,153,.2);
+    background:var(--background);
+    transition:var(--transition);
+  }
+  .carousel-card:hover { transform:translateY(-5px) scale(1.02); box-shadow:0 14px 36px rgba(0,19,53,.18); }
+  .carousel-card .gallery-thumb { height:150px; }
+  .carousel-card .gallery-label { padding:11px 13px; }
+
+  .carousel-nav {
+    display:flex; justify-content:center; align-items:center;
+    gap:14px; margin-top:22px;
+  }
+  .carousel-arrow {
+    width:40px; height:40px; border-radius:50%;
+    background:var(--secondary); color:#fff; border:none;
+    cursor:pointer; font-size:18px;
+    display:flex; align-items:center; justify-content:center;
+    transition:var(--transition);
+  }
+  .carousel-arrow:hover { background:var(--primary); transform:scale(1.1); }
+  .carousel-dots-serv { display:flex; gap:8px; }
+  .carousel-dots-serv span {
+    width:8px; height:8px; border-radius:50%;
+    background:var(--light); cursor:pointer; transition:var(--transition);
+  }
+  .carousel-dots-serv span.active { background:var(--secondary); transform:scale(1.3); }
+
+  /* ═══════════════════════════════════════════
+     CABECERA SECCIóN PRODUCTOS (titulo + boton)
+  ═══════════════════════════════════════════ */
+  .section-header {
+    display:flex; align-items:flex-start;
+    justify-content:space-between; gap:16px;
+    margin-bottom:36px; flex-wrap:wrap;
+  }
+  .section-header .section-title { margin-bottom:0; }
+  .btn-finalizadas {
+    display:inline-flex; align-items:center; gap:8px;
+    background:var(--secondary); color:#fff;
+    padding:10px 20px; border-radius:8px;
+    font-family:var(--fw-body); font-size:13.5px; font-weight:700;
+    border:none; cursor:pointer; transition:var(--transition);
+    flex-shrink:0; align-self:center;
+    box-shadow:0 4px 14px rgba(51,102,153,.35);
+    text-decoration:none;
+  }
+  .btn-finalizadas:hover { background:var(--primary); transform:translateY(-2px); box-shadow:0 6px 20px rgba(0,19,53,.35); }
+  .btn-finalizadas svg { width:16px; height:16px; }
+
+  /* ═══════════════════════════════════════════
+     LIGHTBOX
+     Se abre al hacer clic en cualquier .gallery-item
+     dentro de la sección de Productos Finalizados.
+  ═══════════════════════════════════════════ */
+  .lb-overlay {
+    position:fixed; inset:0; z-index:3000;
+    background:rgba(0,10,30,.85);
+    backdrop-filter:blur(8px);
+    display:flex; align-items:center; justify-content:center;
+    padding:20px;
+    opacity:0; pointer-events:none;
+    transition:opacity .3s ease;
+  }
+  .lb-overlay.open { opacity:1; pointer-events:all; }
+
+  .lb-box {
+    background:var(--white); border-radius:18px;
+    max-width:820px; width:100%;
+    max-height:90vh;
+    display:grid; grid-template-rows:1fr auto;
+    overflow:hidden;
+    box-shadow:0 36px 90px rgba(0,10,30,.55);
+    transform:scale(.93) translateY(20px);
+    transition:transform .38s cubic-bezier(.34,1.46,.64,1), opacity .3s ease;
+    opacity:0;
+  }
+  .lb-overlay.open .lb-box { transform:scale(1) translateY(0); opacity:1; }
+
+  /* Imagen grande */
+  .lb-img-area {
+    width:100%; height:min(54vw, 440px);
+    background:linear-gradient(135deg, var(--primary), var(--secondary));
+    background-size:cover; background-position:center;
+    position:relative; flex-shrink:0;
+  }
+  .lb-img-overlay {
+    position:absolute; inset:0;
+    background:linear-gradient(to top, rgba(0,19,53,.65) 0%, transparent 55%);
+  }
+  /* Badge de categoría sobre la imagen */
+  .lb-cat {
+    position:absolute; top:16px; left:16px;
+    background:rgba(0,19,53,.72); backdrop-filter:blur(6px);
+    color:var(--light); font-size:11px; font-weight:700;
+    padding:5px 13px; border-radius:20px;
+    text-transform:uppercase; letter-spacing:.05em;
+    border:1px solid rgba(113,178,226,.4);
+  }
+  /* Botón cerrar flotando sobre la imagen */
+  .lb-close {
+    position:absolute; top:14px; right:14px;
+    width:36px; height:36px; border-radius:50%;
+    background:rgba(0,19,53,.6); backdrop-filter:blur(6px);
+    border:1px solid rgba(113,178,226,.35);
+    color:#fff; cursor:pointer;
+    display:flex; align-items:center; justify-content:center;
+    font-size:18px; line-height:1;
+    transition:var(--transition);
+  }
+  .lb-close:hover { background:var(--secondary); transform:rotate(90deg); }
+
+  /* Título en la parte baja de la imagen */
+  .lb-title-over {
+    position:absolute; bottom:0; left:0; right:0;
+    padding:20px 24px 20px;
+  }
+  .lb-title-over h3 {
+    font-family:var(--fw-display); font-size:clamp(18px,3vw,26px);
+    font-weight:700; color:#fff;
+    text-shadow:0 2px 12px rgba(0,10,30,.6);
+    line-height:1.25;
+  }
+
+  /* Descripción debajo de la imagen */
+  .lb-desc-area {
+    padding:22px 26px 26px;
+    border-top:1px solid rgba(113,178,226,.15);
+    overflow-y:auto;
+  }
+  .lb-desc-area p {
+    font-size:14.5px; line-height:1.8; color:#1a3560;
+  }
+
+  /* Responsive: en móvil apila verticalmente y reduce imagen */
+  @media(max-width:520px) {
+    .lb-img-area { height:55vw; }
+    .lb-desc-area { padding:18px 20px 22px; }
+  }
+
+  /* Cursor pointer en las tarjetas de galería para indicar que son clicables */
+  .gallery-item { cursor:pointer; }
+  .gallery-item:focus-visible { outline:3px solid var(--accent); outline-offset:2px; }
+
+  /* ── Fade-in al hacer scroll ── */
+  .fade-in { opacity:0; transform:translateY(22px); transition:opacity .6s ease, transform .6s ease; }
+  .fade-in.visible { opacity:1; transform:none; }
+</style>
+</head>
+<body>
+
+<!-- ══════════ HEADER ══════════ -->
+<header id="header">
+  <nav>
+    <div class="brand">
+      <!--
+        LOGO DEL HEADER
+        Opción A (actual): texto dentro de un circulo.
+        Opción B (imagen): reemplaza el div por:
+          <img src="tu-logo.png" alt="HIS" class="brand-logo">
+          y agrega en CSS: .brand-logo { width:48px; height:48px; border-radius:50%; object-fit:cover; }
+      -->
+      <img src="img/Logo_HIS_transparent.png" alt="HIS" class="brand-logo">
+      <span class="brand-name">HIS</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="#productos">Nuestros Productos y Servicios</a></li>
+      <li><a href="contacto.html">Contactos</a></li>
+      <li><a href="#quienes">Acerca de Nosotros</a></li>
+      <li><a href="#noticias">Noticias</a></li>
+      <li><a href="#promociones">Video promocional</a></li>
+    </ul>
+    <a href="https://wa.me/573502297326" target="_blank" class="nav-wa">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.555 4.116 1.527 5.847L.057 23.998l6.305-1.654A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.885 0-3.655-.51-5.18-1.4l-.37-.22-3.742.981.999-3.645-.242-.378A9.956 9.956 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+      Cotiza con nosotros
+    </a>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#productos">Nuestros Productos y Servicios</a>
+    <a href="contacto.html">Contactos</a>
+    <a href="#quienes">Acerca de Nosotros</a>
+    <a href="#noticias">Noticias</a>
+    <a href="#promociones">Video promocional</a>
+    <a href="https://wa.me/573502297326" target="_blank" class="nav-wa">
+      <svg viewBox="0 0 24 24" fill="currentColor" style="width:17px;height:17px"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.555 4.116 1.527 5.847L.057 23.998l6.305-1.654A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.885 0-3.655-.51-5.18-1.4l-.37-.22-3.742.981.999-3.645-.242-.378A9.956 9.956 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+      Cotiza con nosotros
+    </a>
+  </div>
+</header>
+
+<!-- ══════════ BODY ══════════ -->
+<main>
+
+  <!-- Boton flotante WhatsApp -->
+  <a href="https://wa.me/573502297326" target="_blank" class="wa-float" title="Contáctanos por WhatsApp">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.555 4.116 1.527 5.847L.057 23.998l6.305-1.654A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.885 0-3.655-.51-5.18-1.4l-.37-.22-3.742.981.999-3.645-.242-.378A9.956 9.956 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+  </a>
+
+  <!--
+    BOTÓN FLOTANTE CATO — asistente virtual
+    Para añadir la imagen definitiva: reemplaza el emoji por:
+      <img src="img/cato.png" alt="Cato">
+    y elimina el <span class="cato-float-placeholder">
+  -->
+  <a href="contacto.html" class="cato-float" title="¿Necesitas ayuda? Cato puede orientarte">
+    <span class="cato-float-placeholder"><img src="img/Galeria/CatoIcon.png" alt="Cato"></span>
+  </a>
+
+  <!-- ── HERO SLIDER ── -->
+  <div class="hero" id="inicio">
+    <div class="slides" id="slides">
+      <div class="slide slide-1">
+        <div class="slide-overlay"></div>
+        <div class="slide-content">
+          <img src="img/Logo_HIS_transparent.png" alt="HIS" class="slide-logo">
+          <!-- El logo ya incluye el nombre y slogan, no se repiten aquí.
+               En los demás slides sí se añade texto complementario. -->
+        </div>
+      </div>
+      <div class="slide slide-2">
+        <div class="slide-overlay"></div>
+        <div class="slide-content">
+          <img src="img/Logo_HIS_transparent.png" alt="HIS" class="slide-logo">
+          <h1>Transformamos<br>tus Espacios</h1>
+          <p>Más de 10 años de experiencia</p>
+        </div>
+      </div>
+      <div class="slide slide-3">
+        <div class="slide-overlay"></div>
+        <div class="slide-content">
+          <img src="img/Logo_HIS_transparent.png" alt="HIS" class="slide-logo">
+          <h1>Diseño &amp;<br>Calidad</h1>
+          <p>Cada proyecto, una obra única</p>
+        </div>
+      </div>
+    </div>
+    <button class="slider-btn prev" id="heroPrev">&#8592;</button>
+    <button class="slider-btn next" id="heroNext">&#8594;</button>
+    <div class="slider-dots" id="heroDots">
+      <span class="active"></span><span></span><span></span>
+    </div>
+  </div>
+
+  <!-- ══ LAYOUT PRINCIPAL (contenido + aside) ══ -->
+  <div class="page-layout">
+
+    <!-- Columna principal -->
+    <div class="main-col">
+
+      <!-- TARJETAS -->
+      <div class="about-wrap">
+        <div class="section-wrap" id="quienes">
+          <h2 class="section-title">Conócenos</h2>
+          <div class="cards-grid">
+
+            <div class="card fade-in">
+              <!--
+                Imagen "Quienes somos": ya cargada via CSS (#card-img-somos).
+                Para cambiarla edita la regla en el CSS:
+                  #card-img-somos { background-image: url('nueva-ruta.jpg'); }
+              -->
+              <div class="card-img" id="card-img-somos"></div>
+              <div class="card-body">
+                <h3>¿Quiénes somos?</h3>
+                <p>Empresa con más de 10 años transformando espacios. Nos especializamos en diseño y remodelación en madera, combinando tradición, creatividad y técnica.<br><br>
+                <a href="#quienes">Conócenos más →</a></p>
+              </div>
+            </div>
+
+            <div class="card fade-in">
+              <!--
+                Imagen "Que hacemos": cambia la ruta en style="background-image: url('')"
+              -->
+              <div class="card-img" id="card-img-hacemos" style="background-image: url('img/columnas_hacemos.jpg')"></div>
+              <div class="card-body">
+                <h3>¿Qué hacemos?</h3>
+                <p>Diseñamos, fabricamos e instalamos soluciones en madera: cocinas, baños, habitaciones y más. Nos adaptamos a cada cliente con diseños personalizados según sus ideas y presupuesto.<br><br>
+                <a href="https://wa.me/573502297326" target="_blank">Cotiza con nosotros →</a></p>
+              </div>
+            </div>
+
+            <div class="card fade-in">
+              <!--
+                Imagen "Como nos destacamos": cambia la ruta en style="background-image: url('')"
+              -->
+              <div class="card-img" id="card-img-destacamos" style="background-image: url('img/Galeria/cocinaangulo2.jpg')"></div>
+              <div class="card-body">
+                <h3>¿Por qué nos destacamos?</h3>
+                <p>Calidad, durabilidad y acabados impecables en cada proyecto. Materiales seleccionados, técnica garantizada y atención personalizada para que cada detalle supere tus expectativas.</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="section-divider"></div>
+
+      <!-- VIDEO -->
+      <div class="video-wrap-outer" id="promociones">
+        <div class="section-wrap" style="padding:0 0 68px">
+          <h2 class="section-title centered" style="color:var(--primary); padding-top:68px">Nuestra Empresa en Acción</h2>
+          <div class="video-container fade-in" style="margin:0 auto">
+            <!--
+              Para activar el video:
+              1. Borra el bloque <div class="video-placeholder">...</div>
+              2. Descomenta el <iframe> de abajo
+              3. Reemplaza TU_VIDEO_ID por el ID de tu video de YouTube.
+                 El ID es la parte despues de "watch?v=" en la URL.
+                 Ejemplo: https://youtu.be/dQw4w9WgXcQ → ID: dQw4w9WgXcQ
+            -->
+            
+            <iframe src="https://www.youtube.com/embed/PbbKZ6B1zB4" allowfullscreen></iframe>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-divider"></div>
+
+      <!-- GALERIA: PRODUCTOS -->
+      <div class="gallery-section" id="productos">
+        <div class="section-header">
+          <h2 class="section-title" style="margin-bottom:0">Nuestros Productos</h2>
+          <a href="his-productos-finalizados.html" class="btn-finalizadas" id="btnFinalizados">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            Productos Finalizados
+          </a>
+        </div>
+        <div class="photo-gallery">
+
+          <!--
+            Cada .gallery-item tiene atributos data-* que usa el lightbox:
+              data-title     → titulo que aparece en el lightbox
+              data-desc      → descripción que aparece debajo
+              data-cat       → badge de categoria (esquina superior)
+              data-img       → ruta de imagen (misma que el thumb)
+            Para editar: cambia el texto de cada atributo y la url del thumb.
+          -->
+
+          <div class="gallery-item fade-in"
+               tabindex="0"
+               data-title="Cocinas Integrales"
+               data-desc="Diseñamos y fabricamos cocinas integrales a medida en madera, MDF y diferentes acabados. Cada proyecto se adapta al espacio, al gusto y al presupuesto del cliente, con instalación incluida."
+               data-cat="Productos"
+               data-img="img/Galeria/cocina.jpg">
+            <div class="gallery-thumb" style="background-image: url('img/Galeria/cocina.jpg');"/></div>
+            <div class="gallery-label">Cocinas Integrales</div>
+          </div>
+
+          <div class="gallery-item fade-in"
+               tabindex="0"
+               data-title="Puertas"
+               data-desc="Fabricación e instalación de puertas en madera maciza, MDF o enchapada. Disponibles en distintos acabados, marcos y herrajes para interiores y exteriores."
+               data-cat="Productos"
+               data-img="img/Galeria/puerta.jpg">
+            <div class="gallery-thumb" style="background-image: url('img/Galeria/puerta.jpg')"/></div>
+            <div class="gallery-label">Puertas</div>
+          </div>
+
+          <div class="gallery-item fade-in"
+               tabindex="0"
+               data-title="Muebles de Baño"
+               data-desc="Muebles de baño a medida: flotantes, empotrados o independientes. Usamos materiales resistentes a la humedad con acabados elegantes y lavamanos integrado opcional."
+               data-cat="Productos"
+               data-img="img/Galeria/baño.jpg">
+            <div class="gallery-thumb" style="background-image: url('img/Galeria/baño.jpg')"/></div>
+            <div class="gallery-label">Muebles de Baño</div>
+          </div>
+
+          <div class="gallery-item fade-in"
+               tabindex="0"
+               data-title="Repisas"
+               data-desc="Repisa flotante de baño en MDF lacado con soporte de acero. Fabricamos repisas flotantes para baños, cocinas, salas y habitaciones en diferentes acabados y medidas."
+               data-cat="Productos"
+               data-img="img/Galeria/estantedebañoflotante.jpg">
+            <div class="gallery-thumb" style="background-image: url('img/Galeria/estantedebañoflotante.jpg')"></div>
+            <div class="gallery-label">Repisas</div>
+          </div>
+
+          <div class="gallery-item fade-in"
+               tabindex="0"
+               data-title="Alacenas"
+               data-desc="Alacenas de cocina, sala o comedor, desde piso hasta techo o modulares. Personalizamos puertas, cajones, iluminación interior y acabado final."
+               data-cat="Productos"
+               data-img="img/Galeria/alacena.jpg">
+            <div class="gallery-thumb" style="background-image: url('img/Galeria/alacena.jpg')"/></div>
+            <div class="gallery-label">Alacenas</div>
+          </div>
+
+          <div class="gallery-item fade-in"
+               tabindex="0"
+               data-title="Armarios y Closets"
+               data-desc="Fabricamos armarios de habitación a medida en madera con puertas abatibles e interior organizado: cajones, colgadores y repisas según la necesidad del cliente."
+               data-cat="Productos"
+               data-img="img/Galeria/armario.jpg">
+            <div class="gallery-thumb" style="background-image: url('img/Galeria/armario.jpg')"></div>
+            <div class="gallery-label">Armarios y Closets</div>
+          </div>
+
+          <div class="gallery-item fade-in"
+               tabindex="0"
+               data-title="Estantes de Cocina"
+               data-desc="Estantes abiertos de cocina en madera maciza para almacenamiento visible de utensilios y especias. Instalación con soporte oculto o visible según el estilo del espacio."
+               data-cat="Productos"
+               data-img="img/Galeria/estantedecocina.jpg">
+            <div class="gallery-thumb" style="background-image: url('img/Galeria/estantedecocina.jpg')"></div>
+            <div class="gallery-label">Estantes de Cocina</div>
+          </div>
+
+          <div class="gallery-item fade-in"
+               tabindex="0"
+               data-title="Instalaciones Sanitarias"
+               data-desc="Instalación de sanitarios y accesorios con conexiones hidrosanitarias certificadas. Trabajo limpio, garantizado y bajo norma técnica vigente."
+               data-cat="Productos"
+               data-img="img/Galeria/inodoro.jpg">
+            <div class="gallery-thumb" style="background-image: url('img/Galeria/inodoro.jpg')"></div>
+            <div class="gallery-label">Instalaciones Sanitarias</div>
+          </div>
+
+          <div class="gallery-item fade-in"
+               tabindex="0"
+               data-title="Muebles de Cocina"
+               data-desc="Muebles inferiores y superiores de cocina en madera o MDF con cajones y puertas. Diseñados para maximizar el almacenamiento y la funcionalidad de la zona de trabajo."
+               data-cat="Productos"
+               data-img="img/Galeria/muebledecocina.jpg">
+            <div class="gallery-thumb" style="background-image: url('img/Galeria/muebledecocina.jpg')"></div>
+            <div class="gallery-label">Muebles de Cocina</div>
+          </div>
+
+          <div class="gallery-item fade-in"
+               tabindex="0"
+               data-title="Instalaciones Hidrosanitarias"
+               data-desc="Diseño e instalación de sistemas hidrosanitarios completos para obras nuevas o remodelaciones. Cubrimos redes de agua potable, desagüe y ventilación con materiales de primera calidad."
+               data-cat="Productos"
+               data-img="img/Galeria/lavamanos.jpg">
+            <div class="gallery-thumb" style="background-image: url('img/Galeria/lavamanos.jpg')"></div>
+            <div class="gallery-label">Instalaciones Hidrosanitarias</div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="section-divider"></div>
+
+      <!-- CARRUSEL: SERVICIOS -->
+      <div class="carousel-section" id="servicios">
+        <h2 class="section-title">Nuestros Servicios</h2>
+        <div class="carousel-outer">
+          <div class="carousel-viewport">
+            <div class="carousel-track-serv" id="servTrack">
+
+              <div class="carousel-card fade-in">
+                <div class="gallery-thumb" style="background-image:url('img/Galeria/servicios_baños.png')"></div>
+                <div class="gallery-label">Remodelación de Baños</div>
+              </div>
+              <div class="carousel-card fade-in">
+                <div class="gallery-thumb" style="background-image:url('img/Galeria/servicios_pintura.png')"></div>
+                <div class="gallery-label">Pintura y Acabados</div>
+              </div>
+              <div class="carousel-card fade-in">
+                <div class="gallery-thumb" style="background-image:url('img/Galeria/servicios_tubos.png')"></div>
+                <div class="gallery-label">Tubería PVC</div>
+              </div>
+              <div class="carousel-card fade-in">
+                <div class="gallery-thumb" style="background-image:url('img/Galeria/servicios_gas.png')"></div>
+                <div class="gallery-label">Gas Domiciliario</div>
+              </div>
+
+            </div>
+          </div>
+          <div class="carousel-nav">
+            <button class="carousel-arrow" id="servPrev">&#8592;</button>
+            <div class="carousel-dots-serv" id="servDots"></div>
+            <button class="carousel-arrow" id="servNext">&#8594;</button>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /main-col -->
+
+    <!-- ASIDE: blog de noticias (columna derecha) -->
+    <aside class="aside-col" id="noticias">
+      <div class="aside-inner">
+        <div class="aside-header">Blog de Noticias</div>
+
+        <!--
+          Noticias: para cada una, agrega la imagen en:
+          style="background-image: url('tu-imagen.jpg')"
+          dentro del <div class="news-thumb">
+        -->
+        <!-- Blog 1: Cocinas integrales -->
+        <a href="his-blog-cocinas-2026.html" class="news-item fade-in" style="text-decoration:none;color:inherit;">
+          <div class="news-thumb" style="background-image: url('img/blog_cocinas.jpg')"></div>
+          <div class="news-info">
+            <span class="news-tag-pill">Diseño</span>
+            <h4>Cocinas integrales: colores y estilos que dominan el 2026</h4>
+            <p>Del verde salvia al greige — la nueva paleta colombiana y el adiós a las alacenas tradicionales.</p>
+            <p class="news-date">Diciembre 2025</p>
+          </div>
+        </a>
+
+        <!-- Blog 2: Madera sostenible -->
+        <a href="his-blog-madera-sostenible.html" class="news-item fade-in" style="text-decoration:none;color:inherit;">
+          <div class="news-thumb" style="background-image: url('img/blog_maderaSostenible.jpg')"></div>
+          <div class="news-info">
+            <span class="news-tag-pill">Sostenibilidad</span>
+            <h4>Madera sostenible: el nuevo estándar del diseño de interiores</h4>
+            <p>Certificaciones FSC, especies más usadas en Colombia y acabados que se llevan en 2026.</p>
+            <p class="news-date">Febrero 2026</p>
+          </div>
+        </a>
+
+        <!-- Blog 3: Instalaciones de gas -->
+        <a href="his-blog-instalaciones-gas.html" class="news-item fade-in" style="text-decoration:none;color:inherit;">
+          <div class="news-thumb" style="background-image: url('img/blog_profesionalesGas.jpg')"></div>
+          <div class="news-info">
+            <span class="news-tag-pill">Instalaciones</span>
+            <h4>¿Por qué contratar profesionales para instalaciones de gas?</h4>
+            <p>Los riesgos reales de las instalaciones no certificadas y lo que exige la norma en Colombia.</p>
+            <p class="news-date">Noviembre 2025</p>
+          </div>
+        </a>
+
+        <!-- Artículos adicionales sin página propia (próximamente) -->
+        <a href="his-blog-cocinas-2026.html" class="news-item fade-in" style="text-decoration:none;color:inherit;">
+          <div class="news-thumb" style="background-image: url('img/blog_herramientas.png')"></div>
+          <div class="news-info">
+            <span class="news-tag-pill">Tendencias</span>
+            <h4>Herramientas y técnicas que están cambiando la remodelación en 2026</h4>
+            <p>Innovaciones que están cambiando la forma de remodelar espacios.</p>
+            <p class="news-date">Abril 2026</p>
+          </div>
+        </a>
+
+        <a href="his-blog-madera-sostenible.html" class="news-item fade-in" style="text-decoration:none;color:inherit;">
+          <div class="news-thumb" style="background-image: url('img/carrusel_disenoCocinas.png')"></div>
+          <div class="news-info">
+            <span class="news-tag-pill">Consejos</span>
+            <h4>Consejos de remodelación de interiores según expertos</h4>
+            <p>Secretos para espacios elegantes sin exceder el presupuesto.</p>
+            <p class="news-date">Marzo 2026</p>
+          </div>
+        </a>
+
+        <a href="his-blog-instalaciones-gas.html" class="news-item fade-in" style="text-decoration:none;color:inherit;">
+          <div class="news-thumb" style="background-image: url('img/blog_LED.jpg')"></div>
+          <div class="news-info">
+            <span class="news-tag-pill">Iluminación</span>
+            <h4>Iluminación LED inteligente para cocinas y baños modernos</h4>
+            <p>Ahorra energía y crea atmósferas únicas en el hogar.</p>
+            <p class="news-date">Enero 2026</p>
+          </div>
+        </a>
+
+      </div>
+    </aside>
+
+  </div><!-- /page-layout -->
+
+  <div id="contacto"></div>
+
+</main>
+
+<!-- ══════════ LIGHTBOX ══════════ -->
+<div id="lightbox" class="lb-overlay" role="dialog" aria-modal="true" aria-label="Detalle de producto">
+  <div class="lb-box">
+    <div class="lb-img-area" id="lbImg">
+      <div class="lb-img-overlay"></div>
+      <span class="lb-cat" id="lbCat"></span>
+      <button class="lb-close" id="lbClose" aria-label="Cerrar">&#x2715;</button>
+      <div class="lb-title-over">
+        <h3 id="lbTitle"></h3>
+      </div>
+    </div>
+    <div class="lb-desc-area">
+      <p id="lbDesc"></p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ FOOTER ══════════ -->
+<footer>
+  <div class="footer-inner">
+
+    <div class="footer-col">
+      <h5>Navegación</h5>
+      <ul>
+        <li><a href="#quienes">Acerca de Nosotros</a></li>
+        <li><a href="#promociones">Video promocional</a></li>
+        <li><a href="#noticias">Noticias</a></li>
+        <li><a href="#productos">Productos y Servicios</a></li>
+      </ul>
+      <a href="https://wa.me/573502297326" target="_blank" class="footer-wa">
+        <svg viewBox="0 0 24 24" fill="currentColor" style="width:15px;height:15px"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.555 4.116 1.527 5.847L.057 23.998l6.305-1.654A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.885 0-3.655-.51-5.18-1.4l-.37-.22-3.742.981.999-3.645-.242-.378A9.956 9.956 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+        Cotiza con nosotros
+      </a>
+    </div>
+
+    <div class="footer-col footer-brand">
+      <img src="img/Logo_HIS_transparent.png" alt="HIS" class="footer-brand-logo">
+    </div>
+
+    <div class="footer-col">
+      <h5>Redes:</h5>
+      <div class="social-row">
+        <a href="https://www.youtube.com/channel/UC6UhnWTgVGoG7AE0VJ17uBQ" class="social-btn" title="YouTube" target="_blank">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+        </a>
+        <a href="https://www.instagram.com/somos.his" class="social-btn" title="Instagram" target="_blank">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+        </a>
+        <a href="https://www.tiktok.com/@his_hgm?_r=1&_t=ZS-9Aun6NVzA2x" class="social-btn" title="TikTok" target="_blank">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.3 6.3 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.75a4.85 4.85 0 01-1.01-.06z"/></svg>
+        </a>
+        <a href="https://www.facebook.com/share/19fk7skgeM/" class="social-btn" title="Facebook" target="_blank">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+        </a>
+      </div>
+    </div>
+
+  </div>
+  <div class="footer-bottom">
+    <!-- Botón Kommet: cuando tengas el link de Instagram, reemplaza href="#" -->
+    <!-- Botón Kommet: cuando tengas el link de Instagram, reemplaza href="#" -->
+    <a href="mailto:kommet.crew@gmail.com" target="_blank" class="kommet-badge" title="Diseño web por Kommet">
+      <div class="kommet-logo-bubble">
+        <img src="img/kommetLogoTransparent.png" alt="Kommet">
+      </div>
+      <div class="kommet-text">
+        <span class="kommet-by">Diseño web por</span>
+        <span class="kommet-name">Kommet</span>
+      </div>
+    </a>
+    <p>&copy; 2026 HIS — Hogares, Instalaciones y Soluciones. Todos los derechos reservados.</p>
+  </div>
+</footer>
+
+<!-- ══════════ JS ══════════ -->
+<script>
+  /* Sombra del header al hacer scroll */
+  window.addEventListener('scroll', () => {
+    document.getElementById('header').style.boxShadow =
+      window.scrollY > 20 ? '0 4px 24px rgba(0,0,0,.35)' : 'none';
+  });
+
+  /* Hamburger */
+  const hamburger  = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    mobileMenu.classList.toggle('open');
+  });
+  mobileMenu.querySelectorAll('a').forEach(a =>
+    a.addEventListener('click', () => {
+      hamburger.classList.remove('open');
+      mobileMenu.classList.remove('open');
+    })
+  );
+
+  /* Hero slider */
+  let heroIdx = 0;
+  const slidesEl = document.getElementById('slides');
+  const dots     = document.querySelectorAll('#heroDots span');
+  const total    = dots.length;
+
+  function goHero(idx) {
+    heroIdx = (idx + total) % total;
+    slidesEl.style.transform = `translateX(-${heroIdx * 100}%)`;
+    dots.forEach((d, i) => d.classList.toggle('active', i === heroIdx));
+  }
+  document.getElementById('heroPrev').addEventListener('click', () => goHero(heroIdx - 1));
+  document.getElementById('heroNext').addEventListener('click', () => goHero(heroIdx + 1));
+  dots.forEach((d, i) => d.addEventListener('click', () => goHero(i)));
+
+  let heroTimer = setInterval(() => goHero(heroIdx + 1), 4500);
+  document.querySelector('.hero').addEventListener('mouseenter', () => clearInterval(heroTimer));
+  document.querySelector('.hero').addEventListener('mouseleave', () => {
+    heroTimer = setInterval(() => goHero(heroIdx + 1), 4500);
+  });
+
+  /* Carrusel de Servicios */
+  (function() {
+    const track  = document.getElementById('servTrack');
+    const cards  = track.querySelectorAll('.carousel-card');
+    const dotsEl = document.getElementById('servDots');
+    const gap    = 16;
+    let current  = 0;
+    let visible  = 4; // cuantas tarjetas se ven a la vez
+
+    function calcVisible() {
+      const w = track.parentElement.offsetWidth;
+      const cardW = 200 + gap;
+      visible = Math.max(1, Math.floor(w / cardW));
+    }
+
+    const totalPages = () => Math.ceil(cards.length / visible);
+
+    // Crear dots dinamicamente
+    function buildDots() {
+      dotsEl.innerHTML = '';
+      for (let i = 0; i < totalPages(); i++) {
+        const s = document.createElement('span');
+        if (i === 0) s.classList.add('active');
+        s.addEventListener('click', () => goServ(i));
+        dotsEl.appendChild(s);
+      }
+    }
+
+    function goServ(page) {
+      calcVisible();
+      const pages = totalPages();
+      current = Math.max(0, Math.min(page, pages - 1));
+      const cardW = cards[0].offsetWidth + gap;
+      track.style.transform = `translateX(-${current * visible * cardW}px)`;
+      dotsEl.querySelectorAll('span').forEach((d, i) => d.classList.toggle('active', i === current));
+    }
+
+    document.getElementById('servPrev').addEventListener('click', () => goServ(current - 1));
+    document.getElementById('servNext').addEventListener('click', () => goServ(current + 1));
+
+    calcVisible();
+    buildDots();
+    window.addEventListener('resize', () => { calcVisible(); buildDots(); goServ(0); });
+  })();
+
+
+  /* ══════════════════════════════════════════
+     LIGHTBOX — Productos / Productos Finalizados
+  ══════════════════════════════════════════ */
+  (function () {
+    const overlay  = document.getElementById('lightbox');
+    const lbImg    = document.getElementById('lbImg');
+    const lbCat    = document.getElementById('lbCat');
+    const lbTitle  = document.getElementById('lbTitle');
+    const lbDesc   = document.getElementById('lbDesc');
+    const lbClose  = document.getElementById('lbClose');
+
+    function openLightbox(item) {
+      const title = item.dataset.title || '';
+      const desc  = item.dataset.desc  || '';
+      const cat   = item.dataset.cat   || '';
+      const img   = item.dataset.img   || '';
+
+      lbTitle.textContent = title;
+      lbDesc.textContent  = desc;
+      lbCat.textContent   = cat;
+
+      // Imagen de fondo: si hay ruta la usa, si no muestra el degradado CSS
+      if (img) {
+        lbImg.style.backgroundImage = `url('${img}')`;
+      } else {
+        lbImg.style.backgroundImage = '';
+      }
+
+      overlay.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      lbClose.focus();
+    }
+
+    function closeLightbox() {
+      overlay.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    // Clic en cualquier .gallery-item abre el lightbox
+    document.querySelectorAll('.gallery-item').forEach(item => {
+      item.addEventListener('click', () => openLightbox(item));
+      item.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLightbox(item); }
+      });
+    });
+
+    // Cerrar con el botón X
+    lbClose.addEventListener('click', closeLightbox);
+
+    // Cerrar al hacer clic fuera del cuadro
+    overlay.addEventListener('click', e => {
+      if (e.target === overlay) closeLightbox();
+    });
+
+    // Cerrar con Escape
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') closeLightbox();
+    });
+  })();
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

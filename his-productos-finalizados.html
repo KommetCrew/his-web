@@ -1,0 +1,1343 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Productos Finalizados — HIS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+
+  /* ═══════════════════════════════════════════
+     VARIABLES — misma paleta que el landing
+  ═══════════════════════════════════════════ */
+  :root {
+    --primary-dark: #001335;
+    --primary:      #112349;
+    --secondary:    #336699;
+    --accent:       #71B2E2;
+    --light:        #CAE8FF;
+    --background:   #F8FBFF;
+    --text:         #0b1a33;
+    --white:        #ffffff;
+    --whatsapp:     #25D366;
+
+    --fw-display: 'Playfair Display', Georgia, serif;
+    --fw-body:    'Lato', Helvetica, sans-serif;
+
+    --shadow:     0 8px 32px rgba(0,19,53,.14);
+    --radius:     12px;
+    --transition: .35s cubic-bezier(.4,0,.2,1);
+  }
+
+  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body { font-family:var(--fw-body); background:var(--background); color:var(--text); overflow-x:hidden; }
+  img  { display:block; max-width:100%; }
+  a    { text-decoration:none; color:inherit; }
+  ul   { list-style:none; }
+
+  ::-webkit-scrollbar { width:8px; }
+  ::-webkit-scrollbar-track { background:var(--background); }
+  ::-webkit-scrollbar-thumb { background:var(--secondary); border-radius:4px; }
+
+  /* ═══════════════════════════════════════════
+     HEADER (mismo estilo que el landing)
+  ═══════════════════════════════════════════ */
+  header {
+    position:fixed; top:0; left:0; width:100%; z-index:1000;
+    background:rgba(0,19,53,.95);
+    backdrop-filter:blur(12px);
+    border-bottom:1px solid rgba(113,178,226,.18);
+    transition:var(--transition);
+  }
+  nav {
+    max-width:1280px; margin:0 auto;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:12px 24px; gap:20px;
+  }
+  .brand { display:flex; align-items:center; gap:12px; flex-shrink:0; }
+  /*
+    LOGO DEL HEADER (nav)
+    - height:64px → tamaño. Cámbialo para agrandar/achicar.
+    - filter:brightness(0) invert(1) → blanco sobre fondo oscuro.
+  */
+  .brand-logo {
+    height:64px; width:auto; display:block;
+    filter: brightness(0) invert(1);
+  }
+  .brand-name { display:none; }
+  .nav-back {
+    display:flex; align-items:center; gap:8px;
+    color:var(--light); font-size:13.5px; font-weight:700;
+    padding:8px 14px; border-radius:7px;
+    border:1px solid rgba(113,178,226,.3);
+    transition:var(--transition);
+  }
+  .nav-back:hover { background:rgba(113,178,226,.12); color:var(--accent); }
+  .nav-back svg { width:16px; height:16px; }
+  .nav-wa {
+    display:flex; align-items:center; gap:8px;
+    background:var(--whatsapp); color:#fff;
+    padding:9px 16px; border-radius:8px;
+    font-size:13px; font-weight:700;
+    transition:var(--transition); flex-shrink:0;
+  }
+  .nav-wa:hover { background:#1ebe5d; transform:translateY(-1px); }
+  .nav-wa svg { width:16px; height:16px; }
+
+  /* ═══════════════════════════════════════════
+     HERO DE LA PÁGINA
+  ═══════════════════════════════════════════ */
+  .page-hero {
+    padding-top:80px; /* compensar header fijo */
+    background:linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 60%, #1a3a6e 100%);
+    color:#fff; text-align:center;
+    padding-bottom:56px; padding-left:24px; padding-right:24px;
+    position:relative; overflow:hidden;
+  }
+  /* patron de puntos decorativo */
+  .page-hero::before {
+    content:'';
+    position:absolute; inset:0;
+    background-image: radial-gradient(rgba(113,178,226,.15) 1px, transparent 1px);
+    background-size:28px 28px;
+  }
+  .page-hero-inner { position:relative; max-width:700px; margin:0 auto; padding-top:48px; }
+  .page-hero h1 {
+    font-family:var(--fw-display); font-size:clamp(28px,5vw,52px);
+    font-weight:900; line-height:1.1; margin-bottom:16px;
+  }
+  .page-hero p {
+    font-size:clamp(14px,2vw,17px); opacity:.82;
+    line-height:1.7; max-width:540px; margin:0 auto 28px;
+  }
+  .hero-badge {
+    display:inline-flex; align-items:center; gap:8px;
+    background:rgba(113,178,226,.2); border:1px solid rgba(113,178,226,.4);
+    color:var(--light); padding:6px 16px; border-radius:30px;
+    font-size:13px; font-weight:700; letter-spacing:.04em;
+    backdrop-filter:blur(6px);
+  }
+  .hero-badge svg { width:14px; height:14px; }
+
+  /* ═══════════════════════════════════════════
+     FILTROS
+  ═══════════════════════════════════════════ */
+  .filters-bar {
+    background:var(--white);
+    border-bottom:1px solid rgba(113,178,226,.18);
+    position:sticky; top:68px; z-index:100;
+    box-shadow:0 2px 12px rgba(0,19,53,.06);
+  }
+  .filters-inner {
+    max-width:1200px; margin:0 auto;
+    display:flex; align-items:center; gap:10px; flex-wrap:wrap;
+    padding:14px 24px;
+  }
+  .filter-btn {
+    padding:7px 18px; border-radius:30px;
+    font-family:var(--fw-body); font-size:13px; font-weight:700;
+    border:1.5px solid rgba(113,178,226,.35);
+    background:transparent; color:var(--secondary);
+    cursor:pointer; transition:var(--transition);
+  }
+  .filter-btn:hover { border-color:var(--secondary); background:rgba(51,102,153,.07); }
+  .filter-btn.active {
+    background:var(--secondary); color:#fff; border-color:var(--secondary);
+    box-shadow:0 4px 14px rgba(51,102,153,.3);
+  }
+  .filters-label {
+    font-size:12px; font-weight:700; color:var(--accent);
+    text-transform:uppercase; letter-spacing:.07em; margin-right:4px;
+  }
+
+  /* ═══════════════════════════════════════════
+     CONTENIDO PRINCIPAL
+  ═══════════════════════════════════════════ */
+  .main-content {
+    max-width:1200px; margin:0 auto;
+    padding:48px 24px 80px;
+  }
+
+  /* — Estadísticas rápidas — */
+  .stats-row {
+    display:grid; grid-template-columns:repeat(4,1fr); gap:16px;
+    margin-bottom:52px;
+  }
+  @media(max-width:700px) { .stats-row { grid-template-columns:repeat(2,1fr); } }
+
+  .stat-card {
+    background:var(--white); border-radius:var(--radius);
+    border:1px solid rgba(113,178,226,.2);
+    padding:22px 20px; text-align:center;
+    box-shadow:var(--shadow); transition:var(--transition);
+  }
+  .stat-card:hover { transform:translateY(-3px); box-shadow:0 12px 32px rgba(0,19,53,.14); }
+  .stat-num {
+    font-family:var(--fw-display); font-size:36px; font-weight:900;
+    color:var(--secondary); line-height:1;
+  }
+  .stat-label {
+    font-size:12.5px; color:var(--text); opacity:.65;
+    margin-top:6px; font-weight:700; text-transform:uppercase; letter-spacing:.05em;
+  }
+
+  /* — Grilla de productos — */
+  .section-heading {
+    font-family:var(--fw-display); font-size:clamp(20px,3vw,30px);
+    font-weight:700; color:var(--primary); margin-bottom:28px;
+    padding-bottom:12px;
+    border-bottom:2px solid var(--light);
+  }
+  .products-grid {
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(260px,1fr));
+    gap:24px; margin-bottom:56px;
+  }
+
+  .product-card {
+    background:var(--white); border-radius:var(--radius);
+    overflow:hidden; box-shadow:var(--shadow);
+    border:1px solid rgba(113,178,226,.18);
+    transition:var(--transition);
+    display:flex; flex-direction:column;
+  }
+  .product-card:hover { transform:translateY(-6px); box-shadow:0 16px 44px rgba(0,19,53,.16); }
+
+  /*
+    IMAGEN DEL PRODUCTO
+    En cada .product-thumb agrega:
+      style="background-image: url('tu-imagen.jpg')"
+    Si no hay imagen se muestra el degradado de respaldo.
+  */
+  .product-thumb {
+    height:200px;
+    background:linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    background-size:cover; background-position:center;
+    position:relative; flex-shrink:0;
+  }
+  .product-category-badge {
+    position:absolute; top:12px; left:12px;
+    background:rgba(0,19,53,.75); backdrop-filter:blur(6px);
+    color:var(--light); font-size:10.5px; font-weight:700;
+    padding:4px 10px; border-radius:20px;
+    text-transform:uppercase; letter-spacing:.05em;
+    border:1px solid rgba(113,178,226,.35);
+  }
+  .product-status {
+    position:absolute; top:12px; right:12px;
+    background:rgba(37,211,102,.9);
+    color:#fff; font-size:10px; font-weight:700;
+    padding:4px 10px; border-radius:20px;
+    text-transform:uppercase; letter-spacing:.05em;
+  }
+
+  .product-info { padding:20px; flex:1; display:flex; flex-direction:column; }
+  .product-info h3 {
+    font-family:var(--fw-display); font-size:17px; font-weight:700;
+    color:var(--primary); margin-bottom:8px; line-height:1.3;
+  }
+  .product-info p {
+    font-size:13.5px; color:#2a4a70; line-height:1.7;
+    flex:1; margin-bottom:16px;
+  }
+
+  .product-meta {
+    display:flex; gap:14px; font-size:12px;
+    color:var(--secondary); font-weight:700;
+    border-top:1px solid rgba(113,178,226,.15);
+    padding-top:12px; flex-wrap:wrap;
+  }
+  .product-meta span { display:flex; align-items:center; gap:5px; }
+  .product-meta svg { width:13px; height:13px; color:var(--accent); }
+
+  /* — Categoría destacada — */
+  .category-banner {
+    border-radius:var(--radius); overflow:hidden;
+    background:linear-gradient(120deg, var(--primary-dark), var(--secondary));
+    color:#fff; padding:36px 40px; margin-bottom:36px;
+    display:flex; align-items:center; justify-content:space-between;
+    gap:20px; flex-wrap:wrap;
+  }
+  .category-banner h2 {
+    font-family:var(--fw-display); font-size:clamp(18px,3vw,28px);
+    font-weight:700; margin-bottom:6px;
+  }
+  .category-banner p { font-size:14px; opacity:.78; }
+  .category-banner-cta {
+    display:inline-flex; align-items:center; gap:8px;
+    background:#fff; color:var(--primary);
+    padding:11px 22px; border-radius:8px;
+    font-size:14px; font-weight:700;
+    transition:var(--transition); flex-shrink:0;
+  }
+  .category-banner-cta:hover { background:var(--light); transform:translateY(-2px); }
+
+  /* — Botón flotante WhatsApp — */
+  .wa-float {
+    position:fixed; bottom:28px; right:28px; z-index:999;
+    width:56px; height:56px; border-radius:50%;
+    background:var(--whatsapp);
+    display:flex; align-items:center; justify-content:center;
+    box-shadow:0 6px 24px rgba(37,211,102,.45);
+    transition:var(--transition); animation:pulse 2.5s infinite;
+  }
+  .wa-float:hover { transform:scale(1.12); }
+  .wa-float svg { width:28px; height:28px; color:#fff; }
+  @keyframes pulse {
+    0%,100% { box-shadow:0 6px 24px rgba(37,211,102,.45); }
+    50%      { box-shadow:0 6px 36px rgba(37,211,102,.7), 0 0 0 10px rgba(37,211,102,.1); }
+  }
+
+  /* ═══════════════════════════════════════════
+     FOOTER (simplificado)
+  ═══════════════════════════════════════════ */
+  footer {
+    background:var(--primary-dark); color:var(--light);
+    padding:58px 24px 26px;
+    border-top:3px solid var(--secondary);
+  }
+  .footer-inner {
+    max-width:1200px; margin:0 auto;
+    display:grid; grid-template-columns:1fr 1.2fr 1fr;
+    gap:40px; margin-bottom:42px;
+  }
+  .footer-col h5 {
+    font-family:var(--fw-display); font-size:16px; color:var(--accent);
+    margin-bottom:15px; letter-spacing:.04em;
+  }
+  .footer-col ul li { margin-bottom:9px; }
+  .footer-col ul li a { font-size:14px; color:var(--light); transition:var(--transition); }
+  .footer-col ul li a:hover { color:var(--accent); padding-left:5px; }
+  .footer-wa {
+    display:inline-flex; align-items:center; gap:8px;
+    background:var(--whatsapp); color:#fff;
+    padding:9px 14px; border-radius:8px; font-size:13px; font-weight:700;
+    margin-top:10px; transition:var(--transition);
+  }
+  .footer-wa:hover { background:#1ebe5d; }
+  .footer-brand { text-align:center; }
+  /*
+    LOGO EN EL FOOTER
+    - width:180px → tamaño. Cámbialo para agrandar/achicar.
+    - filter:brightness(0) invert(1) → blanco sobre fondo oscuro del footer.
+  */
+  .footer-brand-logo {
+    width:180px; height:auto; display:block;
+    margin:0 auto;
+    filter: brightness(0) invert(1);
+  }
+  .social-row { display:flex; gap:11px; flex-wrap:wrap; }
+  .social-btn {
+    width:42px; height:42px; border-radius:10px;
+    background:rgba(113,178,226,.08); border:1px solid rgba(113,178,226,.22);
+    display:flex; align-items:center; justify-content:center;
+    color:var(--light); transition:var(--transition);
+  }
+  .social-btn:hover { background:var(--secondary); color:#fff; transform:translateY(-3px); }
+  .social-btn svg { width:20px; height:20px; }
+  .footer-bottom {
+    max-width:1200px; margin:0 auto;
+    border-top:1px solid rgba(113,178,226,.15);
+    padding-top:18px;
+    display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px;
+    font-size:12px; color:rgba(202,232,255,.38);
+  }
+    /* Botón Kommet — esquina inferior izquierda del footer
+     Para añadir el logo: dentro de .kommet-logo-bubble reemplaza
+       <span class="kommet-k">K</span>
+       por <img src="img/Logo_Kommet.png" alt="Kommet">
+     Para cambiar el link: edita href en <a class="kommet-badge">  */
+  .kommet-badge {
+    display:inline-flex; align-items:center; gap:9px;
+    padding:7px 14px 7px 8px; border-radius:30px;
+    background:rgba(113,178,226,.08);
+    border:1px solid rgba(113,178,226,.2);
+    transition:var(--transition); text-decoration:none;
+  }
+  .kommet-badge:hover { background:rgba(113,178,226,.18); border-color:rgba(113,178,226,.4); transform:translateY(-2px); }
+  .kommet-logo-bubble {
+    width:32px; height:32px; border-radius:50%;
+    background:#fff;
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0; box-shadow:0 2px 6px rgba(0,19,53,.18); overflow:hidden;
+  }
+  .kommet-logo-bubble img { width:22px; height:22px; object-fit:contain; display:block; }
+  .kommet-k { font-family:var(--fw-display); font-size:14px; font-weight:900; color:var(--secondary); line-height:1; }
+  .kommet-text { display:flex; flex-direction:column; line-height:1.25; }
+  .kommet-by   { font-size:9px; text-transform:uppercase; letter-spacing:.08em; color:rgba(202,232,255,.45); font-weight:700; }
+  .kommet-name { font-size:13px; font-weight:700; color:var(--light); font-family:var(--fw-display); letter-spacing:.02em; }
+  @media(max-width:768px) {
+    .footer-inner { grid-template-columns:1fr; text-align:center; }
+    .social-row { justify-content:center; }
+    .footer-bottom { justify-content:center; text-align:center; }
+  }
+
+  /* ═══════════════════════════════════════════
+     FADE IN
+  ═══════════════════════════════════════════ */
+  .fade-in { opacity:0; transform:translateY(20px); transition:opacity .55s ease, transform .55s ease; }
+  .fade-in.visible { opacity:1; transform:none; }
+  .fade-in-delay-1 { transition-delay:.1s; }
+  .fade-in-delay-2 { transition-delay:.2s; }
+  .fade-in-delay-3 { transition-delay:.3s; }
+
+  /* ═══════════════════════════════════════════
+     LIGHTBOX
+  ═══════════════════════════════════════════ */
+  .lb-overlay {
+    position:fixed; inset:0; z-index:3000;
+    background:rgba(0,10,30,.88);
+    backdrop-filter:blur(10px);
+    display:flex; align-items:center; justify-content:center;
+    padding:20px;
+    opacity:0; pointer-events:none;
+    transition:opacity .3s ease;
+  }
+  .lb-overlay.open { opacity:1; pointer-events:all; }
+
+  .lb-box {
+    background:var(--white); border-radius:18px;
+    max-width:860px; width:100%;
+    max-height:92vh;
+    display:grid; grid-template-rows:1fr auto;
+    overflow:hidden;
+    box-shadow:0 40px 100px rgba(0,10,30,.6);
+    transform:scale(.93) translateY(24px);
+    transition:transform .38s cubic-bezier(.34,1.46,.64,1), opacity .3s ease;
+    opacity:0;
+  }
+  .lb-overlay.open .lb-box { transform:scale(1) translateY(0); opacity:1; }
+
+  .lb-img-area {
+    width:100%; height:min(52vw,420px);
+    background:linear-gradient(135deg, var(--primary), var(--secondary));
+    background-size:cover; background-position:center;
+    position:relative; flex-shrink:0;
+  }
+  .lb-img-overlay {
+    position:absolute; inset:0;
+    background:linear-gradient(to top, rgba(0,19,53,.7) 0%, transparent 55%);
+  }
+  .lb-cat {
+    position:absolute; top:16px; left:16px;
+    background:rgba(0,19,53,.72); backdrop-filter:blur(6px);
+    color:var(--light); font-size:11px; font-weight:700;
+    padding:5px 13px; border-radius:20px;
+    text-transform:uppercase; letter-spacing:.05em;
+    border:1px solid rgba(113,178,226,.4);
+  }
+  .lb-status {
+    position:absolute; top:16px; right:52px;
+    background:rgba(37,211,102,.9);
+    color:#fff; font-size:10px; font-weight:700;
+    padding:5px 12px; border-radius:20px;
+    text-transform:uppercase; letter-spacing:.05em;
+  }
+  .lb-close {
+    position:absolute; top:14px; right:14px;
+    width:36px; height:36px; border-radius:50%;
+    background:rgba(0,19,53,.6); backdrop-filter:blur(6px);
+    border:1px solid rgba(113,178,226,.35);
+    color:#fff; cursor:pointer;
+    display:flex; align-items:center; justify-content:center;
+    font-size:18px; line-height:1;
+    transition:var(--transition);
+  }
+  .lb-close:hover { background:var(--secondary); transform:rotate(90deg); }
+
+  .lb-title-over {
+    position:absolute; bottom:0; left:0; right:0;
+    padding:20px 26px;
+  }
+  .lb-title-over h3 {
+    font-family:var(--fw-display); font-size:clamp(18px,3vw,26px);
+    font-weight:700; color:#fff;
+    text-shadow:0 2px 14px rgba(0,10,30,.6);
+    line-height:1.25;
+  }
+  .lb-desc-area {
+    padding:22px 28px 28px;
+    border-top:1px solid rgba(113,178,226,.15);
+    overflow-y:auto;
+    display:flex; flex-direction:column; gap:16px;
+  }
+  .lb-desc-area p {
+    font-size:14.5px; line-height:1.8; color:#1a3560;
+  }
+  .lb-meta {
+    display:flex; gap:16px; flex-wrap:wrap;
+    font-size:12.5px; color:var(--secondary); font-weight:700;
+  }
+  .lb-meta span { display:flex; align-items:center; gap:5px; }
+  .lb-meta svg  { width:13px; height:13px; color:var(--accent); }
+
+  .product-card { cursor:pointer; }
+  .product-card:focus-visible { outline:3px solid var(--accent); outline-offset:2px; }
+
+  @media(max-width:520px) {
+    .lb-img-area { height:55vw; }
+    .lb-desc-area { padding:18px 20px 22px; }
+  }
+
+</style>
+</head>
+<body>
+
+<!-- ══ HEADER ══ -->
+<header id="header">
+  <nav>
+    <div class="brand">
+      <img src="img/Logo_HIS_transparent.png" alt="HIS" class="brand-logo">
+    </div>
+    <a href="index.html" class="nav-back">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      Volver al inicio
+    </a>
+    <a href="https://wa.me/573502297326" target="_blank" class="nav-wa">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.555 4.116 1.527 5.847L.057 23.998l6.305-1.654A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.885 0-3.655-.51-5.18-1.4l-.37-.22-3.742.981.999-3.645-.242-.378A9.956 9.956 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+      Cotiza con nosotros
+    </a>
+  </nav>
+</header>
+
+<!-- ══ HERO ══ -->
+<div class="page-hero">
+  <div class="page-hero-inner">
+    <div class="hero-badge" style="margin-bottom:20px">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="20 6 9 17 4 12"/></svg>
+      Catálogo de Trabajos Completados
+    </div>
+    <h1>Productos Finalizados</h1>
+    <p>Cada proyecto que ves aquí es el resultado del trabajo de nuestro equipo. Explóralo, encuéntrate con lo que buscas y pide tu cotización.</p>
+  </div>
+</div>
+
+<!-- ══ FILTROS ══ -->
+<div class="filters-bar">
+  <div class="filters-inner">
+    <span class="filters-label">Categoría:</span>
+    <button class="filter-btn active" data-filter="todos">Todos</button>
+    <button class="filter-btn" data-filter="cocinas">Cocinas</button>
+    <button class="filter-btn" data-filter="banos">Baños</button>
+    <button class="filter-btn" data-filter="puertas">Puertas</button>
+    <button class="filter-btn" data-filter="repisas">Repisas y Alacenas</button>
+    <button class="filter-btn" data-filter="pintura">Pintura</button>
+    <button class="filter-btn" data-filter="instalaciones">Instalaciones</button>
+  </div>
+</div>
+
+<!-- Boton flotante WA -->
+<a href="https://wa.me/573502297326" target="_blank" class="wa-float" title="Cotiza con nosotros">
+  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.555 4.116 1.527 5.847L.057 23.998l6.305-1.654A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.885 0-3.655-.51-5.18-1.4l-.37-.22-3.742.981.999-3.645-.242-.378A9.956 9.956 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+</a>
+
+<!-- ══ CONTENIDO PRINCIPAL ══ -->
+<div class="main-content">
+
+  <!-- Estadisticas -->
+  <div class="stats-row">
+    <div class="stat-card fade-in">
+      <div class="stat-num">30+</div>
+      <div class="stat-label">Proyectos completados</div>
+    </div>
+    <div class="stat-card fade-in fade-in-delay-1">
+      <div class="stat-num">20</div>
+      <div class="stat-label">Años de experiencia</div>
+    </div>
+    <div class="stat-card fade-in fade-in-delay-3">
+      <div class="stat-num">6</div>
+      <div class="stat-label">Líneas de productos</div>
+    </div>
+  </div>
+
+  <!-- Banner CTA -->
+  <div class="category-banner fade-in">
+    <div>
+      <h2>Tenemos lo que necesitas para tu hogar</h2>
+      <p>Contáctanos y recibe una cotización personalizada sin costo</p>
+    </div>
+    <a href="https://wa.me/573502297326" target="_blank" class="category-banner-cta">
+      <svg viewBox="0 0 24 24" fill="currentColor" style="width:18px;height:18px"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.555 4.116 1.527 5.847L.057 23.998l6.305-1.654A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.885 0-3.655-.51-5.18-1.4l-.37-.22-3.742.981.999-3.645-.242-.378A9.956 9.956 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+      Cotizar ahora
+    </a>
+  </div>
+
+  <!-- ── COCINAS ── -->
+  <h2 class="section-heading" id="sec-cocinas">Cocinas Integrales</h2>
+  <div class="products-grid" id="grid-cocinas">
+
+    <!--
+      TARJETA DE PRODUCTO
+      Para agregar imagen: edita el style="background-image: url('')"
+      del .product-thumb. Para cambiar los datos, edita el HTML directamente.
+    -->
+    <div class="product-card fade-in" data-category="cocinas" tabindex="0"
+         data-title="Cocina Integral Contemporánea"
+         data-desc="Cocina integral en madera con enchapado y herrajes metálicos. Instalada en espacio de 4×3 metros con alacena de piso a techo y amplia zona de trabajo."
+         data-cat="Cocinas" data-year="2025" data-loc="Bogotá" data-img="img/Galeria/cocina.jpg">
+      <div class="product-thumb" style="background-image: url('img/Galeria/cocina.jpg')">
+        <span class="product-category-badge">Cocinas</span>
+        <span class="product-status">Finalizado</span>
+      </div>
+      <div class="product-info">
+        <h3>Cocina Integral Contemporánea</h3>
+        <p>Cocina integral en madera con enchapado y herrajes metálicos. Instalada en espacio de 4×3 metros con alacena de piso a techo y amplia zona de trabajo.</p>
+        <div class="product-meta">
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>2025</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>Bogotá</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card fade-in" data-category="cocinas" tabindex="0"
+         data-title="Cocina Clara con Alacenas"
+         data-desc="Cocina con gabinetes en tonos claros y encimera amplia. Diseño abierto que aprovecha al máximo la iluminación natural del espacio."
+         data-cat="Cocinas" data-year="2024" data-loc="Bogotá" data-img="img/Galeria/Cocina2.jpg">
+      <div class="product-thumb" style="background-image: url('img/Galeria/Cocina2.jpg')">
+        <span class="product-category-badge">Cocinas</span>
+        <span class="product-status">Finalizado</span>
+      </div>
+      <div class="product-info">
+        <h3>Cocina Clara con Alacenas</h3>
+        <p>Cocina con gabinetes en tonos claros y encimera amplia. Diseño abierto que aprovecha al máximo la iluminación natural del espacio.</p>
+        <div class="product-meta">
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>2024</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>Bogotá</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card fade-in" data-category="cocinas" tabindex="0"
+         data-title="Cocina en Distribución Paralela"
+         data-desc="Cocina optimizada para espacios medianos con distribución en paralelo y máximo aprovechamiento del almacenamiento superior e inferior."
+         data-cat="Cocinas" data-year="2024" data-loc="Bogotá" data-img="img/Galeria/cocina3.jpg">
+      <div class="product-thumb" style="background-image: url('img/Galeria/cocina3.jpg')">
+        <span class="product-category-badge">Cocinas</span>
+        <span class="product-status">Finalizado</span>
+      </div>
+      <div class="product-info">
+        <h3>Cocina en Distribución Paralela</h3>
+        <p>Cocina optimizada para espacios medianos con distribución en paralelo y máximo aprovechamiento del almacenamiento superior e inferior.</p>
+        <div class="product-meta">
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>2024</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>Bogotá</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card fade-in" data-category="cocinas" tabindex="0"
+         data-title="Cocina en Ángulo — Proyecto D"
+         data-desc="Cocina en ángulo con módulos superiores e inferiores, encimera de granito y campana extractora. Aprovechamiento óptimo de espacio en cocina tipo L."
+         data-cat="Cocinas" data-year="2025" data-loc="Bogotá" data-img="img/Galeria/cocinaangulo3.jpg">
+      <div class="product-thumb" style="background-image: url('img/Galeria/cocinaangulo3.jpg')">
+        <span class="product-category-badge">Cocinas</span>
+        <span class="product-status">Finalizado</span>
+      </div>
+      <div class="product-info">
+        <h3>Cocina en Ángulo — Proyecto D</h3>
+        <p>Cocina en L con módulos superiores e inferiores, encimera de granito y campana extractora. Diseño que aprovecha al máximo el espacio disponible en cocinas medianas.</p>
+        <div class="product-meta">
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>2025</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>Bogotá</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card fade-in" data-category="cocinas" tabindex="0"
+         data-title="Cocina Moderna Gris — Proyecto E"
+         data-desc="Cocina con frentes en gris mate, tiradores de perfil metálico y luz LED integrada bajo alacena. Acabado premium y alta durabilidad."
+         data-cat="Cocinas" data-year="2025" data-loc="Bogotá" data-img="img/Galeria/cocina4.jpg">
+      <div class="product-thumb" style="background-image: url('img/Galeria/cocina4.jpg')">
+        <span class="product-category-badge">Cocinas</span>
+        <span class="product-status">Finalizado</span>
+      </div>
+      <div class="product-info">
+        <h3>Cocina Moderna Gris — Proyecto E</h3>
+        <p>Frentes en gris antracita mate, tiradores de perfil metálico plateado y luz LED integrada bajo alacena superior. Acabado premium con materiales de alta durabilidad.</p>
+        <div class="product-meta">
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>2025</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>Bogotá</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card fade-in" data-category="cocinas" tabindex="0"
+         data-title="Vista Frontal de Cocina — Proyecto F"
+         data-desc="Vista frontal de cocina integral con distribución recta, módulos altos y bajos, y encimera en cuarzo blanco."
+         data-cat="Cocinas" data-year="2024" data-loc="Bogotá" data-img="img/Galeria/cocina4angulo2.jpg">
+      <div class="product-thumb" style="background-image: url('img/Galeria/cocina4angulo2.jpg')">
+        <span class="product-category-badge">Cocinas</span>
+        <span class="product-status">Finalizado</span>
+      </div>
+      <div class="product-info">
+        <h3>Vista Frontal de Cocina — Proyecto F</h3>
+        <p>Vista frontal de cocina integral con distribución recta, módulos altos y bajos coordinados, y encimera en cuarzo blanco. Diseño limpio y funcional para espacios reducidos.</p>
+        <div class="product-meta">
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>2024</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>Bogotá</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card fade-in" data-category="cocinas" tabindex="0"
+         data-title="Cocina con Isla Central — Proyecto G"
+         data-desc="Cocina con isla central y acceso por dos lados, módulos inferiores en madera oscura y superiores en blanco."
+         data-cat="Cocinas" data-year="2024" data-loc="Bogotá" data-img="img/Galeria/cocina5.jpg">
+      <div class="product-thumb" style="background-image: url('img/Galeria/cocina5.jpg')">
+        <span class="product-category-badge">Cocinas</span>
+        <span class="product-status">Finalizado</span>
+      </div>
+      <div class="product-info">
+        <h3>Cocina con Isla Central — Proyecto G</h3>
+        <p>Diseño con isla central de doble acceso, módulos inferiores en madera oscura y superiores blancos lacados. Solución ideal para cocinas abiertas integradas al comedor.</p>
+        <div class="product-meta">
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>2024</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>Bogotá</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card fade-in" data-category="cocinas" tabindex="0"
+         data-title="Cocina Minimalista Blanca — Proyecto H"
+         data-desc="Cocina toda en blanco con tiradores embutidos, iluminación cenital y encimera en cerámica gris."
+         data-cat="Cocinas" data-year="2024" data-loc="Bogotá" data-img="img/Galeria/cocina6.jpg">
+      <div class="product-thumb" style="background-image: url('img/Galeria/cocina6.jpg')">
+        <span class="product-category-badge">Cocinas</span>
+        <span class="product-status">Finalizado</span>
+      </div>
+      <div class="product-info">
+        <h3>Cocina Minimalista Blanca — Proyecto H</h3>
+        <p>Cocina todo-blanco con tiradores embutidos, iluminación cenital integrada y encimera cerámica gris. Estética de máxima limpieza visual para espacios contemporáneos.</p>
+        <div class="product-meta">
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>2024</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>Bogotá</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card fade-in" data-category="cocinas" tabindex="0"
+         data-title="Puertas de Cocina a Medida"
+         data-desc="Fabricación de puertas de gabinete de cocina en MDF con acabado en melamina de alta resistencia. Reemplazo sin necesidad de cambiar la estructura existente."
+         data-cat="Cocinas" data-year="2025" data-loc="Bogotá" data-img="img/Galeria/puertadecocina.jpg">
+      <div class="product-thumb" style="background-image: url('img/Galeria/puertadecocina.jpg')">
+        <span class="product-category-badge">Cocinas</span>
+        <span class="product-status">Finalizado</span>
+      </div>
+      <div class="product-info">
+        <h3>Puertas de Cocina a Medida</h3>
+        <p>Fabricación de frentes de gabinete en MDF con acabado en melamina mate de alta resistencia. Posibilidad de reemplazar solo las puertas sin modificar la estructura de la cocina existente.</p>
+        <div class="product-meta">
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>2025</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>Bogotá</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ── BANOS ── -->
+  <h2 class="section-heading" id="sec-banos">Muebles de Baño</h2>
+  <div class="products-grid" id="grid-banos">
+
+    <div class="product-card fade-in" data-category="banos" tabindex="0"
+         data-title="Mueble de Baño Flotante — Proyecto A"
+         data-desc="Mueble suspendido en MDF laqueado blanco con lavamanos integrado y espejo retroiluminado."
+         data-cat="Banos" data-year="2025" data-loc="Bogotá" data-img="img/Galeria/baño.jpg">
+      <div class="product-thumb" style="background-image: url('img/Galeria/baño.jpg')">
+        <span class="product-category-badge">Baños</span>
+        <span class="product-status">Finalizado</span>
+      </div>
+      <div class="product-info">
+        <h3>Mueble de Baño Flotante — Proyecto A</h3>
+        <p>Mueble de baño flotante en MDF laqueado blanco con lavamanos de cerámica integrado y espejo de marco fino. Instalación hidrosanitaria incluida.</p>
+        <div class="product-meta">
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>2025</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>Bogotá</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card fade-in" data-category="banos" tabindex="0"
+         data-title="Baño Completo Remodelado — Proyecto B"
+         data-desc="Incluye mueble, espejo, repisa y accesorios en tonos madera y gris. Instalación hidrosanitaria incluida."
+         data-cat="Banos" data-year="2024" data-loc="Bogotá" data-img="img/Galeria/baño2.jpg">
+      <div class="product-thumb" style="background-image: url('img/Galeria/baño2.jpg')">
+        <span class="product-category-badge">Baños</span>
+        <span class="product-status">Finalizado</span>
+      </div>
+      <div class="product-info">
+        <h3>Baño Completo Remodelado — Proyecto B</h3>
+        <p>Remodelación integral de baño incluyendo mueble vanity, espejo retroiluminado, estante flotante y accesorios en tono madera. Instalación de fontanería incluida.</p>
+        <div class="product-meta">
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>2024</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>Bogotá</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ── PUERTAS ── -->
+  <h2 class="section-heading" id="sec-puertas">Puertas</h2>
+  <div class="products-grid" id="grid-puertas">
+
+    <div class="product-card fade-in" data-category="puertas" tabindex="0"
+         data-title="Puerta Principal Maciza — Proyecto A"
+         data-desc="Puerta en madera sólida con acabado barnizado, marco incluido e instalación completa."
+         data-cat="Puertas" data-year="2025" data-loc="Bogotá" data-img="img/Galeria/puerta.jpg">
+      <div class="product-thumb" style="background-image: url('img/Galeria/puerta.jpg')">
+        <span class="product-category-badge">Puertas</span>
+        <span class="product-status">Finalizado</span>
+      </div>
+      <div class="product-info">
+        <h3>Puerta Principal Maciza — Proyecto A</h3>
+        <p>Puerta principal en madera sólida con acabado barnizado natural y marco incluido. Diseño robusto con herrajes de alta seguridad e instalación profesional.</p>
+        <div class="product-meta">
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>2025</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>Bogotá</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card fade-in" data-category="puertas" tabindex="0"
+         data-title="Puerta Corrediza Interior — Proyecto B"
+         data-desc="Sistema corredizo en rieles de acero ocultos, tablero en MDF con textura madera y riel silencioso."
+         data-cat="Puertas" data-year="2024" data-loc="Bogotá" data-img="img/Galeria/puerta2.jpg">
+      <div class="product-thumb" style="background-image: url('img/Galeria/puerta2.jpg')">
+        <span class="product-category-badge">Puertas</span>
+        <span class="product-status">Finalizado</span>
+      </div>
+      <div class="product-info">
+        <h3>Puerta Corrediza Interior — Proyecto B</h3>
+        <p>Sistema de puerta corrediza en MDF con textura madera y riel de acero oculto silencioso. Ideal para optimizar espacios en habitaciones y estudios.</p>
+        <div class="product-meta">
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>2024</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>Bogotá</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ── REPISAS Y ALACENAS ── -->
+  <h2 class="section-heading" id="sec-repisas">Repisas y Alacenas</h2>
+  <div class="products-grid" id="grid-repisas">
+
+    <div class="product-card fade-in" data-category="repisas" tabindex="0"
+         data-title="Repisa Flotante de Salón — Proyecto A"
+         data-desc="Repisa en madera de pino con soporte oculto, acabado en tono natural y lacado mate."
+         data-cat="Repisas" data-year="2025" data-loc="Bogotá" data-img="img/Galeria/estantedebañoflotante.jpg" style="background-image: url('img/Galeria/estantedebañoflotante.jpg') ; background-size: cover; background-position: center;" >
+        <span class="product-category-badge">Repisas</span>
+        <span class="product-status">Finalizado</span>
+      </div>
+      <div class="product-info">
+        <h3>Estante Flotante de Cocina — Proyecto A</h3>
+        <p>Estante abierto de cocina en madera maciza con soporte oculto, acabado en tono natural. Perfecto para exhibir utensilios y decorar el espacio culinario.</p>
+        <div class="product-meta">
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>2025</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>Bogotá</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card fade-in" data-category="alacenas" tabindex="0"
+         data-title="Alacena de Cocina — Proyecto A"
+         data-desc="Alacena de cocina en madera con puertas batientes y amplio espacio interior para vajilla y electrodomésticos. Fabricada a medida."
+         data-cat="Alacenas" data-year="2024" data-loc="Bogotá" data-img="img/Galeria/alacena.jpg">
+      <div class="product-thumb" style="background-image: url('img/Galeria/alacena.jpg')">
+        <span class="product-category-badge">Alacenas</span>
+        <span class="product-status">Finalizado</span>
+      </div>
+      <div class="product-info">
+        <h3>Alacena de Cocina — Proyecto A</h3>
+        <p>Alacena de cocina en madera con puertas batientes y amplio espacio interior para vajilla y electrodomésticos. Fabricada a medida.</p>
+        <div class="product-meta">
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>2024</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>Bogotá</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card fade-in" data-category="alacenas" tabindex="0"
+         data-title="Alacena con Cajones — Proyecto B"
+         data-desc="Alacena de cocina con combinación de puertas y cajones en la parte inferior. Diseño que maximiza el aprovechamiento del espacio disponible."
+         data-cat="Alacenas" data-year="2025" data-loc="Bogotá" data-img="img/Galeria/alacena2.jpg">
+      <div class="product-thumb" style="background-image: url('img/Galeria/alacena2.jpg')">
+        <span class="product-category-badge">Alacenas</span>
+        <span class="product-status">Finalizado</span>
+      </div>
+      <div class="product-info">
+        <h3>Alacena con Cajones — Proyecto B</h3>
+        <p>Alacena de cocina con combinación de puertas y cajones en la parte inferior. Diseño que maximiza el aprovechamiento del espacio disponible.</p>
+        <div class="product-meta">
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>2025</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>Bogotá</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card fade-in" data-category="alacenas" tabindex="0"
+         data-title="Alacena — Vista Lateral"
+         data-desc="Vista lateral de la alacena con cajones mostrando la profundidad y la calidad de los acabados en madera y los herrajes utilizados."
+         data-cat="Alacenas" data-year="2024" data-loc="Bogotá" data-img="img/Galeria/alacena2angulo2.jpg">
+      <div class="product-thumb" style="background-image: url('img/Galeria/alacena2angulo2.jpg')">
+        <span class="product-category-badge">Alacenas</span>
+        <span class="product-status">Finalizado</span>
+      </div>
+      <div class="product-info">
+        <h3>Alacena — Vista Lateral</h3>
+        <p>Vista lateral de la alacena con cajones mostrando la profundidad y la calidad de los acabados en madera y los herrajes utilizados.</p>
+        <div class="product-meta">
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>2024</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>Bogotá</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card fade-in" data-category="alacenas" tabindex="0"
+         data-title="Alacena Alta de Cocina — Proyecto C"
+         data-desc="Alacena de piso a techo con puertas en la parte superior e inferior. Solución de almacenamiento de gran capacidad para cocinas amplias."
+         data-cat="Alacenas" data-year="2025" data-loc="Bogotá" data-img="img/Galeria/alacena3.jpg">
+      <div class="product-thumb" style="background-image: url('img/Galeria/alacena3.jpg')">
+        <span class="product-category-badge">Alacenas</span>
+        <span class="product-status">Finalizado</span>
+      </div>
+      <div class="product-info">
+        <h3>Alacena Alta de Cocina — Proyecto C</h3>
+        <p>Alacena de piso a techo con puertas en la parte superior e inferior. Solución de almacenamiento de gran capacidad para cocinas amplias.</p>
+        <div class="product-meta">
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>2025</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>Bogotá</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ── PINTURA ── -->
+  <h2 class="section-heading" id="sec-pintura">Pintura de Muebles</h2>
+  <div class="products-grid" id="grid-pintura">
+
+    <div class="product-card fade-in" data-category="armarios" tabindex="0"
+         data-title="Armario en Madera — Proyecto A"
+         data-desc="Armario de habitación en madera con puertas abatibles e interior organizado: cajones, colgadores y repisas fabricados a medida del cliente."
+         data-cat="Armarios" data-year="2025" data-loc="Bogotá" data-img="img/Galeria/armario.jpg">
+      <div class="product-thumb" style="background-image: url('img/Galeria/armario.jpg')">
+        <span class="product-category-badge">Armarios</span>
+        <span class="product-status">Finalizado</span>
+      </div>
+      <div class="product-info">
+        <h3>Armario en Madera — Proyecto A</h3>
+        <p>Armario de habitación en madera con puertas abatibles e interior organizado: cajones, colgadores y repisas fabricados a medida del cliente.</p>
+        <div class="product-meta">
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>2025</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>Bogotá</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card fade-in" data-category="pintura" tabindex="0"
+         data-title="Armario Cerrado — Proyecto B"
+         data-desc="Armario de habitación con puertas batientes en MDF laqueado. Pintura epóxica de alta durabilidad en tono crema hueso."
+         data-cat="Armarios" data-year="2025" data-loc="Bogotá" data-img="img/Galeria/armario(cerrado).jpg">
+      <div class="product-thumb" style="background-image: url('img/Galeria/armario(cerrado).jpg')">
+        <span class="product-category-badge">Armarios</span>
+        <span class="product-status">Finalizado</span>
+      </div>
+      <div class="product-info">
+        <h3>Armario Cerrado — Proyecto B</h3>
+        <p>Armario de habitación con puertas batientes en MDF laqueado. Pintura epóxica de alta durabilidad en tono crema hueso; resistente a rayaduras y humedad.</p>
+        <div class="product-meta">
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>2025</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>Bogotá</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card fade-in" data-category="armarios" tabindex="0"
+         data-title="Armario con Compartimentos — Proyecto B"
+         data-desc="Armario en madera con distribución interior personalizada. Cajones, colgadores y repisas organizados según las necesidades del cliente."
+         data-cat="Armarios" data-year="2024" data-loc="Bogotá" data-img="img/Galeria/armario2.jpg">
+      <div class="product-thumb" style="background-image: url('img/Galeria/armario2.jpg')">
+        <span class="product-category-badge">Armarios</span>
+        <span class="product-status">Finalizado</span>
+      </div>
+      <div class="product-info">
+        <h3>Armario con Compartimentos — Proyecto B</h3>
+        <p>Armario en madera con distribución interior personalizada. Cajones, colgadores y repisas organizados según las necesidades del cliente.</p>
+        <div class="product-meta">
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>2024</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>Bogotá</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card fade-in" data-category="pintura" tabindex="0"
+         data-title="Armario Cerrado Roble — Proyecto D"
+         data-desc="Armario de dos puertas batientes en enchape de roble natural. Acabado barnizado mate con manijas de perfil metálico."
+         data-cat="Armarios" data-year="2024" data-loc="Bogotá" data-img="img/Galeria/armario2(cerrado).jpg">
+      <div class="product-thumb" style="background-image: url('img/Galeria/armario2(cerrado).jpg')">
+        <span class="product-category-badge">Armarios</span>
+        <span class="product-status">Finalizado</span>
+      </div>
+      <div class="product-info">
+        <h3>Armario Roble — Proyecto D</h3>
+        <p>Armario de dos puertas en enchape de roble natural con acabado barnizado mate. Manijas de perfil metálico y estructura en tablero aglomerado de alta densidad.</p>
+        <div class="product-meta">
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>2024</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>Bogotá</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card fade-in" data-category="armarios" tabindex="0"
+         data-title="Armario — Vista Interior"
+         data-desc="Perspectiva interior del armario mostrando la distribución optimizada con zona de almacenaje alto, cajones y zona de colgado doble."
+         data-cat="Armarios" data-year="2025" data-loc="Bogotá" data-img="img/Galeria/armario2angulo2.jpg">
+      <div class="product-thumb" style="background-image: url('img/Galeria/armario2angulo2.jpg')">
+        <span class="product-category-badge">Armarios</span>
+        <span class="product-status">Finalizado</span>
+      </div>
+      <div class="product-info">
+        <h3>Armario — Vista Interior</h3>
+        <p>Perspectiva interior del armario mostrando la distribución optimizada con zona de almacenaje alto, cajones y zona de colgado doble.</p>
+        <div class="product-meta">
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>2025</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>Bogotá</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card fade-in" data-category="pintura" tabindex="0"
+         data-title="Armario Colonial — Proyecto F"
+         data-desc="Armario en madera maciza estilo colonial con herrajes decorativos dorados. Restauración y pintura en tono nogal oscuro."
+         data-cat="Armarios" data-year="2024" data-loc="Bogotá" data-img="img/Galeria/armario3(cerrado).jpg">
+      <div class="product-thumb" style="background-image: url('img/Galeria/armario3(cerrado).jpg')">
+        <span class="product-category-badge">Armarios</span>
+        <span class="product-status">Finalizado</span>
+      </div>
+      <div class="product-info">
+        <h3>Armario Restaurado Colonial — Proyecto F</h3>
+        <p>Armario en madera maciza estilo colonial con herrajes decorativos dorados. Restauración completa con lijado, reparación de molduras y pintura en tono nogal oscuro.</p>
+        <div class="product-meta">
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>2024</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>Bogotá</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card fade-in" data-category="armarios" tabindex="0"
+         data-title="Armario Empotrado — Proyecto C"
+         data-desc="Armario empotrado de piso a techo integrado a la arquitectura del cuarto. Aprovecha el 100% del espacio disponible con diseño personalizado."
+         data-cat="Armarios" data-year="2025" data-loc="Bogotá" data-img="img/Galeria/armario4.jpg">
+      <div class="product-thumb" style="background-image: url('img/Galeria/armario4.jpg')">
+        <span class="product-category-badge">Armarios</span>
+        <span class="product-status">Finalizado</span>
+      </div>
+      <div class="product-info">
+        <h3>Armario Empotrado — Proyecto C</h3>
+        <p>Armario empotrado de piso a techo integrado a la arquitectura del cuarto. Aprovecha el 100% del espacio disponible con diseño personalizado.</p>
+        <div class="product-meta">
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>2025</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>Bogotá</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card fade-in" data-category="armarios" tabindex="0"
+         data-title="Armario con Espejo — Proyecto D"
+         data-desc="Armario de habitación con panel espejo frontal. Amplía visualmente el espacio y aporta funcionalidad al área de vestidor."
+         data-cat="Armarios" data-year="2024" data-loc="Bogotá" data-img="img/Galeria/armario5.jpg">
+      <div class="product-thumb" style="background-image: url('img/Galeria/armario5.jpg')">
+        <span class="product-category-badge">Armarios</span>
+        <span class="product-status">Finalizado</span>
+      </div>
+      <div class="product-info">
+        <h3>Armario con Espejo — Proyecto D</h3>
+        <p>Armario de habitación con panel espejo frontal. Amplía visualmente el espacio y aporta funcionalidad al área de vestidor.</p>
+        <div class="product-meta">
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>2024</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>Bogotá</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card fade-in" data-category="armarios" tabindex="0"
+         data-title="Armario Bicolor — Proyecto E"
+         data-desc="Armario moderno con combinación de tonos madera y lacado. Incluye detalle de iluminación LED interior y tiradores de gola integrados."
+         data-cat="Armarios" data-year="2025" data-loc="Bogotá" data-img="img/Galeria/armario6.jpg">
+      <div class="product-thumb" style="background-image: url('img/Galeria/armario6.jpg')">
+        <span class="product-category-badge">Armarios</span>
+        <span class="product-status">Finalizado</span>
+      </div>
+      <div class="product-info">
+        <h3>Armario Bicolor — Proyecto E</h3>
+        <p>Armario moderno con combinación de tonos madera y lacado. Incluye detalle de iluminación LED interior y tiradores de gola integrados.</p>
+        <div class="product-meta">
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>2025</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>Bogotá</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card fade-in" data-category="armarios" tabindex="0"
+         data-title="Armario con Iluminación LED — Proyecto F"
+         data-desc="Armario con iluminación LED integrada que se activa al abrir las puertas. Visibilidad total del interior y acabados de alta calidad."
+         data-cat="Armarios" data-year="2024" data-loc="Bogotá" data-img="img/Galeria/armario7.jpg">
+      <div class="product-thumb" style="background-image: url('img/Galeria/armario7.jpg')">
+        <span class="product-category-badge">Armarios</span>
+        <span class="product-status">Finalizado</span>
+      </div>
+      <div class="product-info">
+        <h3>Armario con Iluminación LED — Proyecto F</h3>
+        <p>Armario con iluminación LED integrada que se activa al abrir las puertas. Visibilidad total del interior y acabados de alta calidad.</p>
+        <div class="product-meta">
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>2024</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>Bogotá</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ── INSTALACIONES ── -->
+  <h2 class="section-heading" id="sec-instalaciones">Instalaciones</h2>
+  <div class="products-grid" id="grid-instalaciones">
+
+    <div class="product-card fade-in" data-category="muebles" tabindex="0"
+         data-title="Cajones Organizadores — Proyecto A"
+         data-desc="Cajones organizadores en madera con guías de cierre suave. Fabricados a medida para cocinas, closets y muebles de baño."
+         data-cat="Muebles" data-year="2025" data-loc="Bogotá" data-img="img/Galeria/cajon.jpg">
+      <div class="product-thumb" style="background-image: url('img/Galeria/cajon.jpg')">
+        <span class="product-category-badge">Muebles</span>
+        <span class="product-status">Finalizado</span>
+      </div>
+      <div class="product-info">
+        <h3>Cajones Organizadores — Proyecto A</h3>
+        <p>Cajones organizadores en madera con guías de cierre suave. Fabricados a medida para cocinas, closets y muebles de baño.</p>
+        <div class="product-meta">
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>2025</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>Bogotá</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card fade-in" data-category="muebles" tabindex="0"
+         data-title="Escritorio a Medida — Proyecto B"
+         data-desc="Escritorio en madera fabricado a medida con cajones y espacio de cómputo integrado. Solución ideal para oficina en casa."
+         data-cat="Muebles" data-year="2024" data-loc="Bogotá" data-img="img/Galeria/escritorio.jpg">
+      <div class="product-thumb" style="background-image: url('img/Galeria/escritorio.jpg')"
+        <span class="product-category-badge">Muebles</span>
+        <span class="product-status">Finalizado</span>
+      </div>
+      <div class="product-info">
+        <h3>Escritorio a Medida — Proyecto B</h3>
+        <p>Escritorio en madera fabricado a medida con cajones y espacio de cómputo integrado. Solución ideal para oficina en casa.</p>
+        <div class="product-meta">
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>2024</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>Bogotá</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card fade-in" data-category="muebles" tabindex="0"
+         data-title="Closet con Mueble de TV — Proyecto C"
+         data-desc="Closet con módulo para televisor integrado en madera. Diseño que combina almacenamiento de ropa y zona de entretenimiento en un solo mueble."
+         data-cat="Muebles" data-year="2025" data-loc="Bogotá" data-img="img/Galeria/closet_muebledetelevisor.jpg">
+      <div class="product-thumb" style="background-image: url('img/Galeria/closet_muebledetelevisor.jpg')">
+        <span class="product-category-badge">Muebles</span>
+        <span class="product-status">Finalizado</span>
+      </div>
+      <div class="product-info">
+        <h3>Closet con Mueble de TV — Proyecto C</h3>
+        <p>Closet con módulo para televisor integrado en madera. Diseño que combina almacenamiento de ropa y zona de entretenimiento en un solo mueble.</p>
+        <div class="product-meta">
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>2025</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>Bogotá</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div><!-- /main-content -->
+
+<!-- ══ LIGHTBOX ══ -->
+<div id="lightbox" class="lb-overlay" role="dialog" aria-modal="true" aria-label="Detalle de proyecto">
+  <div class="lb-box">
+    <div class="lb-img-area" id="lbImg">
+      <div class="lb-img-overlay"></div>
+      <span class="lb-cat" id="lbCat"></span>
+      <span class="lb-status">Finalizado</span>
+      <button class="lb-close" id="lbClose" aria-label="Cerrar">&#x2715;</button>
+      <div class="lb-title-over">
+        <h3 id="lbTitle"></h3>
+      </div>
+    </div>
+    <div class="lb-desc-area">
+      <p id="lbDesc"></p>
+      <div class="lb-meta" id="lbMeta"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="footer-inner">
+
+    <div class="footer-col">
+      <h5>Navegación</h5>
+      <ul>
+        <li><a href="index.html#quienes">Acerca de Nosotros</a></li>
+        <li><a href="index.html#promociones">Video promocional</a></li>
+        <li><a href="index.html#noticias">Noticias</a></li>
+        <li><a href="index.html#productos">Productos y Servicios</a></li>
+      </ul>
+      <a href="https://wa.me/573502297326" target="_blank" class="footer-wa">
+        <svg viewBox="0 0 24 24" fill="currentColor" style="width:15px;height:15px"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.555 4.116 1.527 5.847L.057 23.998l6.305-1.654A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.885 0-3.655-.51-5.18-1.4l-.37-.22-3.742.981.999-3.645-.242-.378A9.956 9.956 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+        Cotiza con nosotros
+      </a>
+    </div>
+
+    <div class="footer-col footer-brand">
+      <img src="img/Logo_HIS_transparent.png" alt="HIS" class="footer-brand-logo">
+    </div>
+
+    <div class="footer-col">
+      <h5>Redes:</h5>
+      <div class="social-row">
+        <a href="https://www.youtube.com/channel/UC6UhnWTgVGoG7AE0VJ17uBQ" class="social-btn" title="YouTube" target="_blank">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+        </a>
+        <a href="https://www.instagram.com/somos.his" class="social-btn" title="Instagram" target="_blank">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+        </a>
+        <a href="https://www.tiktok.com/@his_hgm?_r=1&_t=ZS-9Aun6NVzA2x" class="social-btn" title="TikTok" target="_blank">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.3 6.3 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.75a4.85 4.85 0 01-1.01-.06z"/></svg>
+        </a>
+        <a href="https://www.facebook.com/share/19fk7skgeM/" class="social-btn" title="Facebook" target="_blank">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+        </a>
+      </div>
+    </div>
+
+  </div>
+  <div class="footer-bottom">
+    <a href="mailto:kommet.crew@gmail.com" target="_blank" class="kommet-badge" title="Diseño web por Kommet">
+      <div class="kommet-logo-bubble">
+        <img src="img/kommetLogoTransparent.png" alt="Kommet">
+      </div>
+      <div class="kommet-text">
+        <span class="kommet-by">Diseño web por</span>
+        <span class="kommet-name">Kommet</span>
+      </div>
+    </a>
+    <p>&copy; 2026 HIS — Hogares, Instalaciones y Soluciones. Todos los derechos reservados.</p>
+  </div>
+</footer>
+
+<script>
+  /* Sombra del header */
+  window.addEventListener('scroll', () => {
+    document.getElementById('header').style.boxShadow =
+      window.scrollY > 20 ? '0 4px 24px rgba(0,0,0,.3)' : 'none';
+  });
+
+  /* ══ LIGHTBOX ══ */
+  (function () {
+    const overlay = document.getElementById('lightbox');
+    const lbImg   = document.getElementById('lbImg');
+    const lbCat   = document.getElementById('lbCat');
+    const lbTitle = document.getElementById('lbTitle');
+    const lbDesc  = document.getElementById('lbDesc');
+    const lbMeta  = document.getElementById('lbMeta');
+    const lbClose = document.getElementById('lbClose');
+
+    const calIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:13px;height:13px;color:var(--accent)"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>`;
+    const pinIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:13px;height:13px;color:var(--accent)"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>`;
+
+    function openLightbox(card) {
+      lbTitle.textContent = card.dataset.title || '';
+      lbDesc.textContent  = card.dataset.desc  || '';
+      lbCat.textContent   = card.dataset.cat   || '';
+      const img = card.dataset.img || '';
+      lbImg.style.backgroundImage = img ? `url('${img}')` : '';
+
+      const year = card.dataset.year || '';
+      const loc  = card.dataset.loc  || '';
+      lbMeta.innerHTML =
+        (year ? `<span>${calIcon}${year}</span>` : '') +
+        (loc  ? `<span>${pinIcon}${loc}</span>`  : '');
+
+      overlay.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      lbClose.focus();
+    }
+
+    function closeLightbox() {
+      overlay.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    document.querySelectorAll('.product-card').forEach(card => {
+      card.addEventListener('click', () => openLightbox(card));
+      card.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLightbox(card); }
+      });
+    });
+
+    lbClose.addEventListener('click', closeLightbox);
+    overlay.addEventListener('click', e => { if (e.target === overlay) closeLightbox(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+  })();
+
+  /* Filtros por categoria */
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const filter = btn.dataset.filter;
+      const cards  = document.querySelectorAll('.product-card');
+      const headings = document.querySelectorAll('.section-heading');
+
+      cards.forEach(card => {
+        if (filter === 'todos' || card.dataset.category === filter) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+
+      // Ocultar encabezados de seccion si no tienen tarjetas visibles
+      document.querySelectorAll('.products-grid').forEach(grid => {
+        const visibles = grid.querySelectorAll('.product-card[style*="flex"], .product-card:not([style])');
+        // el h2 anterior al grid
+        const heading = grid.previousElementSibling;
+        if (heading && heading.classList.contains('section-heading')) {
+          // Si filter es todos, mostrar todo
+          if (filter === 'todos') {
+            heading.style.display = '';
+            grid.style.display = '';
+          } else {
+            const anyVisible = Array.from(grid.querySelectorAll('.product-card'))
+              .some(c => c.dataset.category === filter);
+            heading.style.display = anyVisible ? '' : 'none';
+            grid.style.display    = anyVisible ? '' : 'none';
+          }
+        }
+      });
+    });
+  });
+
+  /* Fade-in al hacer scroll */
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

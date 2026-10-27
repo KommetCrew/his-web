@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cocinas Integrales: Los Colores y Estilos que Dominan el 2026 — Blog HIS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+  /* ── RESET / BASE ── */
+  *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+  :root {
+    --primary:#001335; --primary-dark:#000d22; --secondary:#336699;
+    --accent:#71B2E2; --light:#CAE8FF; --background:#F8FBFF; --white:#fff;
+    --whatsapp:#25D366; --text:#1a3560;
+    --fw-display:'Playfair Display',serif; --fw-body:'Inter',sans-serif;
+    --radius:12px; --transition:all .28s ease;
+  }
+  body { font-family:var(--fw-body); background:var(--background); color:var(--text); overflow-x:hidden; line-height:1.8; }
+  img  { display:block; max-width:100%; }
+  a    { text-decoration:none; color:inherit; }
+  ul   { list-style:none; }
+  ::-webkit-scrollbar { width:8px; }
+  ::-webkit-scrollbar-track { background:var(--background); }
+  ::-webkit-scrollbar-thumb { background:var(--secondary); border-radius:4px; }
+
+  /* ── HEADER (idéntico al landing) ── */
+  header {
+    position:fixed; top:0; left:0; width:100%; z-index:1000;
+    background:rgba(0,19,53,.95); backdrop-filter:blur(12px);
+    border-bottom:1px solid rgba(113,178,226,.18);
+    transition:var(--transition);
+  }
+  nav {
+    max-width:1280px; margin:0 auto;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:12px 24px; gap:20px;
+  }
+  .brand { display:flex; align-items:center; gap:12px; flex-shrink:0; }
+  /*
+    LOGO DEL HEADER — para cambiar el tamaño edita height:64px
+    filter:brightness(0) invert(1) lo hace blanco sobre fondo oscuro
+  */
+  .brand-logo { height:64px; width:auto; display:block; filter:brightness(0) invert(1); }
+  .brand-name { display:none; }
+  .nav-links { display:flex; align-items:center; gap:4px; }
+  .nav-links a {
+    font-size:13px; color:var(--light);
+    padding:7px 12px; border-radius:6px;
+    transition:var(--transition); letter-spacing:.02em;
+  }
+  .nav-links a:hover { background:rgba(113,178,226,.15); color:var(--accent); }
+  .nav-wa {
+    display:flex; align-items:center; gap:8px;
+    background:var(--whatsapp); color:#fff;
+    padding:9px 16px; border-radius:8px;
+    font-size:13px; font-weight:700;
+    transition:var(--transition); flex-shrink:0;
+  }
+  .nav-wa:hover { background:#1ebe5d; transform:translateY(-1px); }
+  .nav-wa svg { width:17px; height:17px; }
+  .hamburger {
+    display:none; background:none; border:none; cursor:pointer;
+    flex-direction:column; gap:5px; padding:4px;
+  }
+  .hamburger span {
+    display:block; width:24px; height:2px;
+    background:var(--accent); border-radius:2px; transition:var(--transition);
+  }
+  .hamburger.open span:nth-child(1) { transform:translateY(7px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity:0; }
+  .hamburger.open span:nth-child(3) { transform:translateY(-7px) rotate(-45deg); }
+  .mobile-menu {
+    display:none; flex-direction:column;
+    background:rgba(0,19,53,.98);
+    border-top:1px solid rgba(113,178,226,.15);
+    padding:16px 24px 24px;
+  }
+  .mobile-menu a {
+    color:var(--light); padding:12px 0;
+    border-bottom:1px solid rgba(113,178,226,.12);
+    font-size:15px; transition:var(--transition);
+  }
+  .mobile-menu a:hover { color:var(--accent); padding-left:8px; }
+  .mobile-menu .nav-wa { margin-top:16px; justify-content:center; }
+  @media(max-width:900px) {
+    .nav-links, .nav-wa { display:none; }
+    .hamburger { display:flex; }
+    .mobile-menu.open { display:flex; }
+  }
+
+  /* ── WhatsApp flotante ── */
+  .wa-float {
+    position:fixed; bottom:28px; right:28px; z-index:999;
+    width:58px; height:58px; border-radius:50%;
+    background:var(--whatsapp);
+    display:flex; align-items:center; justify-content:center;
+    box-shadow:0 6px 24px rgba(37,211,102,.45);
+    transition:var(--transition); animation:pulse 2.5s infinite;
+  }
+  .wa-float:hover { transform:scale(1.12); }
+  .wa-float svg { width:30px; height:30px; color:#fff; }
+  @keyframes pulse {
+    0%,100% { box-shadow:0 6px 24px rgba(37,211,102,.45); }
+    50%      { box-shadow:0 6px 36px rgba(37,211,102,.7), 0 0 0 10px rgba(37,211,102,.1); }
+  }
+
+  /* ── FOOTER (idéntico al landing) ── */
+  footer {
+    background:var(--primary-dark); color:var(--light);
+    padding:58px 24px 26px; border-top:3px solid var(--secondary);
+  }
+  .footer-inner {
+    max-width:1200px; margin:0 auto;
+    display:grid; grid-template-columns:1fr 1.2fr 1fr;
+    gap:40px; margin-bottom:42px;
+  }
+  .footer-col h5 {
+    font-family:var(--fw-display); font-size:16px; color:var(--accent);
+    margin-bottom:15px; letter-spacing:.04em;
+  }
+  .footer-col ul li { margin-bottom:9px; }
+  .footer-col ul li a { font-size:14px; color:var(--light); transition:var(--transition); }
+  .footer-col ul li a:hover { color:var(--accent); padding-left:5px; }
+  .footer-wa {
+    display:inline-flex; align-items:center; gap:8px;
+    background:var(--whatsapp); color:#fff;
+    padding:9px 14px; border-radius:8px; font-size:13px; font-weight:700;
+    margin-top:10px; transition:var(--transition);
+  }
+  .footer-wa:hover { background:#1ebe5d; }
+  .footer-brand { text-align:center; }
+  /*
+    LOGO EN EL FOOTER — para cambiar el tamaño edita width:180px
+    filter:brightness(0) invert(1) lo hace blanco sobre fondo oscuro
+  */
+  .footer-brand-logo { width:180px; height:auto; margin:0 auto; display:block; filter:brightness(0) invert(1); }
+  .social-row { display:flex; gap:11px; flex-wrap:wrap; }
+  .social-btn {
+    width:42px; height:42px; border-radius:10px;
+    background:rgba(113,178,226,.08); border:1px solid rgba(113,178,226,.22);
+    display:flex; align-items:center; justify-content:center;
+    color:var(--light); transition:var(--transition);
+  }
+  .social-btn:hover { background:var(--secondary); color:#fff; transform:translateY(-3px); }
+  .social-btn svg { width:20px; height:20px; }
+  .footer-bottom {
+    max-width:1200px; margin:0 auto;
+    border-top:1px solid rgba(113,178,226,.15);
+    padding-top:18px;
+    display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px;
+    font-size:12px; color:rgba(202,232,255,.38);
+  }
+    /* Botón Kommet — esquina inferior izquierda del footer
+     Para añadir el logo: dentro de .kommet-logo-bubble reemplaza
+       <span class="kommet-k">K</span>
+       por <img src="img/Logo_Kommet.png" alt="Kommet">
+     Para cambiar el link: edita href en <a class="kommet-badge">  */
+  .kommet-badge {
+    display:inline-flex; align-items:center; gap:9px;
+    padding:7px 14px 7px 8px; border-radius:30px;
+    background:rgba(113,178,226,.08);
+    border:1px solid rgba(113,178,226,.2);
+    transition:var(--transition); text-decoration:none;
+  }
+  .kommet-badge:hover { background:rgba(113,178,226,.18); border-color:rgba(113,178,226,.4); transform:translateY(-2px); }
+  .kommet-logo-bubble {
+    width:32px; height:32px; border-radius:50%;
+    background:#fff;
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0; box-shadow:0 2px 6px rgba(0,19,53,.18); overflow:hidden;
+  }
+  .kommet-logo-bubble img { width:22px; height:22px; object-fit:contain; display:block; }
+  .kommet-k { font-family:var(--fw-display); font-size:14px; font-weight:900; color:var(--secondary); line-height:1; }
+  .kommet-text { display:flex; flex-direction:column; line-height:1.25; }
+  .kommet-by   { font-size:9px; text-transform:uppercase; letter-spacing:.08em; color:rgba(202,232,255,.45); font-weight:700; }
+  .kommet-name { font-size:13px; font-weight:700; color:var(--light); font-family:var(--fw-display); letter-spacing:.02em; }
+
+  @media(max-width:768px) {
+    .footer-inner { grid-template-columns:1fr; text-align:center; }
+    .social-row { justify-content:center; }
+    .footer-bottom { justify-content:center; text-align:center; }
+  }
+
+  /* ── Artículo: espaciado por header fijo ── */
+  .article-hero { padding-top:100px; }
+
+  /* ── ARTÍCULO: hero ── */
+  .article-hero-inner { max-width:760px; margin:0 auto; position:relative; padding-bottom:60px; }
+  .tag-pill {
+    display:inline-block;
+    border:1px solid rgba(255,255,255,.3);
+    color:rgba(255,255,255,.85); font-size:11px; font-weight:700;
+    padding:5px 14px; border-radius:20px; letter-spacing:.08em;
+    text-transform:uppercase; margin-bottom:20px;
+    background:rgba(255,255,255,.1);
+  }
+  .article-hero h1 {
+    font-family:var(--fw-display); font-size:clamp(26px,5vw,52px);
+    font-weight:900; color:#fff; line-height:1.2; margin-bottom:16px;
+  }
+  .article-hero .meta {
+    font-size:13px; color:rgba(255,255,255,.6); display:flex;
+    align-items:center; justify-content:center; gap:20px; flex-wrap:wrap;
+  }
+  .article-hero .meta span { display:flex; align-items:center; gap:5px; }
+  .article-hero .meta svg { width:14px; height:14px; color:var(--accent); }
+
+  /* ── ARTÍCULO: cuerpo ── */
+  .article-wrap { max-width:800px; margin:0 auto; padding:56px 24px 80px; }
+  .article-wrap p  { font-size:16px; line-height:1.9; color:var(--text); margin-bottom:22px; }
+  .article-wrap h2 {
+    font-family:var(--fw-display); font-size:26px; font-weight:700;
+    color:var(--primary); margin:44px 0 16px;
+    padding-bottom:10px; border-bottom:2px solid var(--light);
+  }
+  .article-wrap h3 {
+    font-family:var(--fw-display); font-size:19px; font-weight:700;
+    color:var(--secondary); margin:30px 0 10px;
+  }
+  .highlight-box {
+    background:var(--light); border-left:4px solid var(--accent);
+    border-radius:0 var(--radius) var(--radius) 0;
+    padding:20px 24px; margin:28px 0;
+    font-size:15px; color:var(--primary); font-weight:500; line-height:1.75;
+  }
+  .alert-box {
+    background:#fff3e0; border-left:4px solid #f57c00;
+    border-radius:0 var(--radius) var(--radius) 0;
+    padding:20px 24px; margin:28px 0;
+    font-size:15px; color:#7a3800; font-weight:500; line-height:1.75;
+  }
+  .alert-box strong { color:#d84315; }
+  .tip-list { margin:16px 0 24px; display:flex; flex-direction:column; gap:10px; }
+  .tip-list li {
+    display:flex; align-items:flex-start; gap:12px;
+    background:var(--white); border:1px solid rgba(113,178,226,.22);
+    border-radius:var(--radius); padding:14px 16px;
+    font-size:14.5px; line-height:1.65;
+  }
+  .tip-list li::before {
+    content:''; flex-shrink:0; width:8px; height:8px; border-radius:50%;
+    background:var(--accent); margin-top:7px;
+  }
+  .tip-list.green li::before { background:#3a9a5c; }
+  .tip-list.orange li::before { background:#f57c00; }
+  /*
+    IMÁGENES DEL ARTÍCULO
+    Reemplaza src="" por la ruta de tu imagen en cada <img class="article-img">.
+    Si no hay imagen aún, el placeholder se muestra automáticamente.
+    Ejemplo: <img class="article-img" src="img/mi-foto.jpg" alt="Descripción">
+  */
+  .article-img-wrap {
+    width:100%; border-radius:var(--radius); overflow:hidden; margin:32px 0;
+    border:1px solid rgba(113,178,226,.2);
+  }
+  .article-img-wrap img {
+    width:100%; height:auto; display:block;
+    aspect-ratio:16/7; object-fit:cover;
+  }
+  .article-img-wrap img[src=""] , .article-img-wrap img:not([src]) {
+    background:linear-gradient(135deg, var(--light), #e0f0ff);
+    min-height:220px;
+  }
+  .img-caption {
+    padding:9px 14px; font-size:12px; color:#4a6fa5;
+    background:var(--white); text-align:center; border-top:1px solid rgba(113,178,226,.15);
+  }
+  /* Tabla */
+  .compare-table { width:100%; border-collapse:collapse; margin:24px 0; font-size:14px; border-radius:var(--radius); overflow:hidden; }
+  .compare-table th { background:var(--primary); color:#fff; padding:12px 16px; text-align:left; font-weight:600; }
+  .compare-table td { padding:11px 16px; border-bottom:1px solid rgba(113,178,226,.2); }
+  .compare-table tr:nth-child(even) td { background:var(--light); }
+  .compare-table tr:hover td { background:#e0f0ff; }
+  /* Steps */
+  .steps { margin:20px 0 28px; display:flex; flex-direction:column; gap:14px; }
+  .step { display:flex; gap:16px; align-items:flex-start; background:var(--white); border:1px solid rgba(113,178,226,.2); border-radius:var(--radius); padding:16px; }
+  .step-num { flex-shrink:0; width:36px; height:36px; border-radius:50%; background:linear-gradient(135deg,var(--secondary),var(--accent)); color:#fff; font-weight:900; font-size:15px; display:flex; align-items:center; justify-content:center; }
+  .step-body h4 { font-size:15px; font-weight:700; color:var(--primary); margin-bottom:4px; }
+  .step-body p  { font-size:13.5px; color:#4a6fa5; margin:0; line-height:1.6; }
+    /* Avatar del autor — muestra el logo HIS en blanco por defecto
+     Para usar foto real: pon src="img/tu-foto.jpg" en el <img>
+     y elimina el filter de .author-avatar img                    */
+  .author-box {
+    margin-top:56px; padding:24px 28px; border-radius:var(--radius);
+    background:var(--white); border:1px solid rgba(113,178,226,.2);
+    display:flex; align-items:center; gap:20px; flex-wrap:wrap;
+  }
+  .author-avatar {
+    width:64px; height:64px; border-radius:50%; flex-shrink:0;
+    overflow:hidden;
+    background:linear-gradient(135deg, var(--secondary), var(--accent));
+    display:flex; align-items:center; justify-content:center;
+  }
+  .author-avatar img {
+    width:80%; height:80%; object-fit:contain; display:block;
+    filter:brightness(0) invert(1);
+  }
+  .author-info h4 { font-size:16px; font-weight:700; color:var(--primary); }
+  .author-info p  { font-size:13px; color:#4a6fa5; margin-top:3px; }
+    /* CTA box — fondo degradado oscuro, textos siempre claros
+     Para cambiar el color del fondo: edita los dos colores en background:linear-gradient
+     Para cambiar el color del título: edita color en .cta-box h3
+     Para cambiar el color del botón: edita background en .cta-btn               */
+  .cta-box {
+    margin-top:40px; padding:36px 32px; border-radius:var(--radius);
+    background:linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    text-align:center;
+    box-shadow:0 8px 32px rgba(0,19,53,.25);
+  }
+  .cta-box h3 {
+    font-family:var(--fw-display); font-size:22px; margin-bottom:10px;
+    color:var(--light);
+  }
+  .cta-box p  {
+    font-size:14.5px; line-height:1.7; margin-bottom:24px;
+    color:rgba(202,232,255,.85);
+  }
+  .cta-btn {
+    display:inline-flex; align-items:center; gap:8px;
+    background:var(--light); color:var(--primary);
+    font-weight:700; font-size:14px;
+    padding:12px 28px; border-radius:8px;
+    transition:var(--transition);
+    box-shadow:0 4px 14px rgba(0,19,53,.2);
+  }
+  .cta-btn:hover { background:#fff; transform:translateY(-2px); box-shadow:0 6px 20px rgba(0,19,53,.3); }
+
+  /* Hero color específico de este artículo */
+  .article-hero { background:linear-gradient(135deg, var(--primary) 0%, #1a3560 60%, var(--secondary) 100%); position:relative; overflow:hidden; text-align:center; }
+  .article-hero::before {
+    content:''; position:absolute; inset:0;
+    background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none'%3E%3Cg fill='%2371B2E2' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+  </style>
+</head>
+<body>
+
+<!-- ════════════════════════════════
+     HEADER — idéntico al landing
+     Para cambiar el logo: edita src="img/Logo_HIS_transparent.png"
+════════════════════════════════ -->
+<header id="header">
+  <nav>
+    <a href="index.html" class="brand">
+      <img src="img/Logo_HIS_transparent.png" alt="HIS" class="brand-logo">
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html#productos">Productos y Servicios</a></li>
+      <li><a href="index.html#contacto">Contacto</a></li>
+      <li><a href="index.html#quienes">Acerca de Nosotros</a></li>
+      <li><a href="index.html#noticias">Blog de Noticias</a></li>
+      <li><a href="index.html#promociones">Video Promocional</a></li>
+    </ul>
+    <a href="https://wa.me/573502297326" target="_blank" class="nav-wa">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.555 4.116 1.527 5.847L.057 23.998l6.305-1.654A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.885 0-3.655-.51-5.18-1.4l-.37-.22-3.742.981.999-3.645-.242-.378A9.956 9.956 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+      Cotiza con nosotros
+    </a>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html#productos">Productos y Servicios</a>
+    <a href="index.html#contacto">Contacto</a>
+    <a href="index.html#quienes">Acerca de Nosotros</a>
+    <a href="index.html#noticias">Blog de Noticias</a>
+    <a href="index.html#promociones">Video Promocional</a>
+    <a href="https://wa.me/573502297326" target="_blank" class="nav-wa">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.555 4.116 1.527 5.847L.057 23.998l6.305-1.654A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.885 0-3.655-.51-5.18-1.4l-.37-.22-3.742.981.999-3.645-.242-.378A9.956 9.956 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+      Cotiza con nosotros
+    </a>
+  </div>
+</header>
+
+<!-- Botón flotante WhatsApp -->
+<a href="https://wa.me/573502297326" target="_blank" class="wa-float" title="Contáctanos por WhatsApp">
+  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.555 4.116 1.527 5.847L.057 23.998l6.305-1.654A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.885 0-3.655-.51-5.18-1.4l-.37-.22-3.742.981.999-3.645-.242-.378A9.956 9.956 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+</a>
+
+<!-- ════ HERO DEL ARTÍCULO ════ -->
+<section class="article-hero">
+  <div class="article-hero-inner">
+    <span class="tag-pill">Diseño · Tendencias</span>
+    <h1>Cocinas Integrales: Los Colores y Estilos que Dominan el 2026</h1>
+    <div class="meta">
+      <span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        Diciembre 2025
+      </span>
+      <span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        Lectura: 5 min
+      </span>
+      <span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        Bogotá, Colombia
+      </span>
+    </div>
+  </div>
+</section>
+
+<!-- ════ CUERPO ════ -->
+<article class="article-wrap">
+
+
+  <p>Si estás pensando en remodelar tu cocina este año, hay buenas noticias: el 2026 trae un giro frente al minimalismo frío. Las cocinas colombianas se llenan de calidez, carácter y materiales que duran. Aquí te contamos qué está pasando.</p>
+
+  <div class="highlight-box">
+    El blanco total y el gris "millennial" están saliendo del protagonismo. La nueva cocina colombiana apuesta por colores con alma, materiales que se sienten naturales y distribuciones que conectan con el resto del hogar.
+  </div>
+
+  <h2>Los colores que mandan</h2>
+  <p>El <strong>verde salvia, el greige y los tonos cashmere</strong> están reemplazando las paletas completamente blancas. Son colores que funcionan en casi cualquier tendencia, envejecen bien y aportan calidez sin recargar el espacio.</p>
+  <p>En cocinas bogotanas con buena luz natural, el verde salvia funciona especialmente bien en gabinetes inferiores, complementado con maderas en tono roble o nogal y mesones de cuarzo en blanco o gris suave.</p>
+
+  <!--
+    IMAGEN 1 — paleta de colores / cocina de referencia
+    Reemplaza src="" por la ruta de tu imagen. Ejemplo: src="img/cocina-verde-salvia.jpg"
+    Edita el texto del pie de foto en .img-caption si lo necesitas.
+  -->
+  <div class="article-img-wrap">
+    <img src="img/Galería Blog/cocina_verde_salvia.webp" alt="Cocina en verde salvia con mesón de cuarzo blanco">
+    <p class="img-caption">Paleta verde salvia con mesón en cuarzo blanco — tendencia 2026 en Colombia</p>
+  </div>
+
+  <h2>Adiós a las alacenas tradicionales</h2>
+  <p>Una de las tendencias más comentadas en Colombia para el 2026 es la transformación del almacenamiento. Las alacenas superiores voluminosas pierden terreno frente a <strong>despensas modernas, módulos verticales y estantes abiertos</strong>.</p>
+  <ul class="tip-list green">
+    <li>Reemplaza dos alacenas superiores por una despensa vertical empotrada — ganas el doble de capacidad y el espacio visual se despeja.</li>
+    <li>Estantes flotantes con iluminación LED integrada funcionan como exhibidores y puntos de luz simultáneamente.</li>
+    <li>Rieles de utensilios sobre la encimera liberan cajones y añaden un toque industrial muy en boga.</li>
+    <li>Módulos extraíbles y esquineros funcionales aprovechan cada centímetro sin que la cocina parezca pequeña.</li>
+  </ul>
+
+  <h2>Materiales: lo natural primero</h2>
+  <p>La <strong>piedra sinterizada</strong> reemplaza al mármol por su dureza y facilidad de mantenimiento. Los <strong>acabados mate</strong> superan a los brillantes porque ocultan las huellas y se ven mejor con el paso del tiempo.</p>
+  <p>La tendencia en Colombia apunta a tonos de madera medios — menos amarillos, más neutros — con acabados naturales que muestran las vetas.</p>
+
+  <h3>Tecnología discreta</h3>
+  <p>Cajones con cierre suave y apertura touch, grifos de agua fría o hirviendo, y sistemas de iluminación que se ajustan según la hora del día. Todo pensado para mejorar la experiencia sin romper la estética.</p>
+
+  <div class="highlight-box">
+    La cocina vuelve a ser un espacio social. Las distribuciones abiertas hacia el salón o el comedor permiten más luz, fluidez y amplitud — algo especialmente valorado en apartamentos de Bogotá.
+  </div>
+
+  <p>En HIS trabajamos cocinas integrales a medida pensadas para la vida real en Bogotá. Si estás considerando una remodelación, con gusto te asesoramos sin costo.</p>
+
+
+  <!-- ════
+       AUTOR — avatar
+       El <img> dentro de .author-avatar usa el logo HIS por defecto.
+       Para cambiar: edita src="img/Logo_HIS_transparent.png" por otra imagen.
+  ════ -->
+  <div class="author-box">
+    <div class="author-avatar">
+      <img src="img/Logo_HIS_transparent.png" alt="HIS" style="filter:brightness(0) invert(1);">
+    </div>
+    <div class="author-info">
+      <h4>Equipo HIS</h4>
+      <p>Hogar, Interiores y Soluciones · Bogotá, Colombia</p>
+    </div>
+  </div>
+
+  <div class="cta-box">
+    <h3>¿Listo para renovar tu cocina?</h3>
+    <p>Cotiza tu proyecto con nosotros — sin compromiso y con asesoría personalizada.</p>
+    <a href="https://wa.me/573502297326" target="_blank" class="cta-btn">
+      <svg viewBox="0 0 24 24" fill="currentColor" style="width:16px;height:16px"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.555 4.116 1.527 5.847L.057 23.998l6.305-1.654A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.885 0-3.655-.51-5.18-1.4l-.37-.22-3.742.981.999-3.645-.242-.378A9.956 9.956 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+      Hablar con un experto
+    </a>
+  </div>
+
+</article>
+
+<!-- ════════════════════════════════
+     FOOTER — idéntico al landing
+     Logo HIS: edita src="img/Logo_HIS_transparent.png"
+     Logo Kommet: reemplaza <span class="kommet-logo-img"> por
+       <img src="img/Logo_Kommet.png" alt="Kommet" style="height:26px;width:auto;opacity:.75">
+     Link Kommet: reemplaza href="#" por href="https://instagram.com/TU_CUENTA"
+════════════════════════════════ -->
+<footer>
+  <div class="footer-inner">
+
+    <div class="footer-col">
+      <h5>Navegación</h5>
+      <ul>
+        <li><a href="index.html#quienes">Acerca de Nosotros</a></li>
+        <li><a href="index.html#promociones">Video Promocional</a></li>
+        <li><a href="index.html#noticias">Blog de Noticias</a></li>
+        <li><a href="index.html#productos">Productos y Servicios</a></li>
+      </ul>
+      <a href="https://wa.me/573502297326" target="_blank" class="footer-wa">
+        <svg viewBox="0 0 24 24" fill="currentColor" style="width:15px;height:15px"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.555 4.116 1.527 5.847L.057 23.998l6.305-1.654A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.885 0-3.655-.51-5.18-1.4l-.37-.22-3.742.981.999-3.645-.242-.378A9.956 9.956 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+        Cotiza con nosotros
+      </a>
+    </div>
+
+    <div class="footer-col footer-brand">
+      <!--
+        LOGO DEL FOOTER — para cambiar el tamaño edita width:180px en CSS .footer-brand-logo
+        Para cambiar la imagen: edita src="img/Logo_HIS_transparent.png"
+      -->
+      <img src="img/Logo_HIS_transparent.png" alt="HIS" class="footer-brand-logo">
+    </div>
+
+    <div class="footer-col">
+      <h5>Redes:</h5>
+      <div class="social-row">
+        <!-- Para cada red: reemplaza href="#" por el link de tu cuenta -->
+        <a href="https://www.youtube.com/channel/UC6UhnWTgVGoG7AE0VJ17uBQ" class="social-btn" title="YouTube" target="_blank">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+        </a>
+        <a href="https://www.instagram.com/somos.his" class="social-btn" title="Instagram" target="_blank">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+        </a>
+        <a href="https://www.tiktok.com/@his_hgm?_r=1&_t=ZS-9Aun6NVzA2x" class="social-btn" title="TikTok" target="_blank">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.3 6.3 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.75a4.85 4.85 0 01-1.01-.06z"/></svg>
+        </a>
+        <a href="https://www.facebook.com/share/19fk7skgeM/" class="social-btn" title="Facebook" target="_blank">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+        </a>
+      </div>
+    </div>
+
+  </div>
+  <div class="footer-bottom">
+        <!--
+      BOTÓN KOMMET
+      Para añadir imagen: dentro de .kommet-logo-bubble reemplaza
+        <span class="kommet-k">K</span>
+        por <img src="img/Logo_Kommet.png" alt="Kommet">
+      Para cambiar el link: edita href abajo
+    -->
+    <a href="mailto:kommet.crew@gmail.com" target="_blank" class="kommet-badge" title="Diseño web por Kommet">
+      <div class="kommet-logo-bubble">
+        <img src="img/kommetLogoTransparent.png" alt="Kommet">
+      </div>
+      <div class="kommet-text">
+        <span class="kommet-by">Diseño web por</span>
+        <span class="kommet-name">Kommet</span>
+      </div>
+    </a>
+    <p>&copy; 2026 HIS — Hogar, Interiores y Soluciones. Todos los derechos reservados.</p>
+  </div>
+</footer>
+
+<script>
+  /* Header sombra al scroll */
+  window.addEventListener('scroll', () => {
+    document.getElementById('header').style.boxShadow =
+      window.scrollY > 20 ? '0 4px 24px rgba(0,0,0,.35)' : 'none';
+  });
+  /* Hamburger */
+  const hamburger  = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    mobileMenu.classList.toggle('open');
+  });
+  mobileMenu.querySelectorAll('a').forEach(a =>
+    a.addEventListener('click', () => {
+      hamburger.classList.remove('open');
+      mobileMenu.classList.remove('open');
+    })
+  );
+</script>
+
+</body>
+</html>

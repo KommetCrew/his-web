@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contacto — HIS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ─── RESET / VARIABLES ─── */
+    *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+    :root {
+      --primary:#001335; --primary-dark:#000d22; --secondary:#336699;
+      --accent:#71B2E2; --light:#CAE8FF; --background:#F8FBFF; --white:#fff;
+      --whatsapp:#25D366; --text:#1a3560;
+      --fw-display:'Playfair Display',serif; --fw-body:'Inter',sans-serif;
+      --radius:14px; --transition:all .28s ease;
+    }
+    body { font-family:var(--fw-body); background:var(--background); color:var(--text); overflow-x:hidden; }
+    a { text-decoration:none; color:inherit; }
+    ul { list-style:none; }
+    img { display:block; max-width:100%; }
+
+    /* ─── HEADER ─── */
+    header {
+      position:sticky; top:0; z-index:1000;
+      background:rgba(0,19,53,.95); backdrop-filter:blur(12px);
+      border-bottom:1px solid rgba(113,178,226,.18);
+    }
+    nav { max-width:1280px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; padding:10px 24px; gap:20px; }
+    .brand { display:flex; align-items:center; }
+    .brand-logo { height:80px; width:auto; filter:brightness(0) invert(1); }
+    .nav-links { display:flex; align-items:center; gap:4px; }
+    .nav-links a { font-size:13px; color:var(--light); padding:7px 12px; border-radius:6px; transition:var(--transition); }
+    .nav-links a:hover, .nav-links a.active { background:rgba(113,178,226,.15); color:var(--accent); }
+    .nav-wa { display:flex; align-items:center; gap:8px; background:var(--whatsapp); color:#fff; padding:9px 16px; border-radius:8px; font-size:13px; font-weight:700; transition:var(--transition); }
+    .nav-wa:hover { background:#1ebe5d; }
+    .nav-wa svg { width:16px; height:16px; }
+    .hamburger { display:none; background:none; border:none; cursor:pointer; flex-direction:column; gap:5px; padding:4px; }
+    .hamburger span { display:block; width:24px; height:2px; background:var(--accent); border-radius:2px; transition:var(--transition); }
+    .hamburger.open span:nth-child(1) { transform:translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity:0; }
+    .hamburger.open span:nth-child(3) { transform:translateY(-7px) rotate(-45deg); }
+    .mobile-menu { display:none; flex-direction:column; background:rgba(0,19,53,.98); border-top:1px solid rgba(113,178,226,.15); padding:16px 24px 24px; }
+    .mobile-menu a { color:var(--light); padding:12px 0; border-bottom:1px solid rgba(113,178,226,.12); font-size:15px; transition:var(--transition); }
+    .mobile-menu a:hover { color:var(--accent); padding-left:8px; }
+    .mobile-menu .nav-wa { margin-top:16px; justify-content:center; }
+    @media(max-width:900px) { .nav-links,.nav-wa { display:none; } .hamburger { display:flex; } .mobile-menu.open { display:flex; } }
+
+    /* ─── WA FLOAT ─── */
+    .wa-float { position:fixed; bottom:28px; right:28px; z-index:999; width:58px; height:58px; border-radius:50%; background:var(--whatsapp); display:flex; align-items:center; justify-content:center; box-shadow:0 6px 24px rgba(37,211,102,.45); transition:var(--transition); }
+    .wa-float:hover { transform:scale(1.1); }
+    .wa-float svg { width:28px; height:28px; color:#fff; }
+
+    /* ─── HERO ─── */
+    .hero {
+      background:linear-gradient(135deg, var(--primary) 0%, #1a3560 55%, var(--secondary) 100%);
+      padding:72px 24px 56px; position:relative; overflow:hidden;
+    }
+    .hero::before {
+      content:''; position:absolute; inset:0;
+      background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none'%3E%3Cg fill='%2371B2E2' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+    .hero-inner { max-width:960px; margin:0 auto; display:flex; align-items:center; gap:40px; position:relative; flex-wrap:wrap; }
+    .hero-text { flex:1; min-width:260px; }
+    .hero-text h1 { font-family:var(--fw-display); font-size:clamp(28px,5vw,52px); font-weight:900; color:#fff; line-height:1.2; margin-bottom:14px; }
+    .hero-text p { font-size:16px; color:rgba(202,232,255,.8); line-height:1.7; }
+    /*
+      IMAGEN CATO — hero
+      Para añadir: reemplaza el .cato-hero-placeholder por
+        <img src="img/cato.png" alt="Cato" class="cato-hero-img">
+      y añade en CSS: .cato-hero-img { width:220px; height:auto; }
+    */
+    img[alt="Cato"] { width:100px; height: 100px; object-fit:contain; border-radius:50%; display:block; }
+    .cato-hero {
+      width:200px; height:200px; flex-shrink:0;
+      display:flex; align-items:center; justify-content:center;
+      background:rgba(255,255,255,.08); border:2px solid rgba(113,178,226,.3);
+      border-radius:50%;
+      font-size:100px; line-height:1;
+    }
+    .cato-hero img { width:100%; height:100%; object-fit:contain; border-radius:50%; display:block; }
+    
+    /* ─── SECCIÓN BASE ─── */
+    section { padding:60px 24px; }
+    .section-inner { max-width:960px; margin:0 auto; }
+    .section-label {
+      font-size:11px; font-weight:700; letter-spacing:.1em; text-transform:uppercase;
+      color:var(--accent); margin-bottom:8px;
+    }
+    .section-title { font-family:var(--fw-display); font-size:clamp(22px,4vw,36px); font-weight:700; color:var(--primary); margin-bottom:6px; }
+    .cato-says {
+      display:flex; align-items:flex-start; gap:12px;
+      background:var(--light); border-left:4px solid var(--accent);
+      border-radius:0 var(--radius) var(--radius) 0;
+      padding:14px 18px; margin-bottom:36px; font-size:14.5px; color:var(--primary);
+      font-style:italic; line-height:1.65;
+    }
+    .cato-says-icon { font-size:22px; flex-shrink:0; margin-top:1px; }
+
+    /* ─── S1: OPCIONES ─── */
+    .options-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+    @media(max-width:700px) { .options-grid { grid-template-columns:1fr 1fr; } }
+    @media(max-width:420px) { .options-grid { grid-template-columns:1fr; } }
+
+    .option-card {
+      background:var(--white); border:1.5px solid rgba(113,178,226,.2);
+      border-radius:var(--radius); padding:22px 18px;
+      cursor:pointer; transition:var(--transition);
+      display:flex; flex-direction:column; align-items:flex-start; gap:10px;
+      text-align:left;
+    }
+    .option-card:hover { border-color:var(--accent); transform:translateY(-4px); box-shadow:0 10px 30px rgba(0,19,53,.1); }
+    .option-card.active { border-color:var(--secondary); background:var(--light); }
+    .option-icon { font-size:28px; line-height:1; }
+    .option-card h3 { font-size:15px; font-weight:700; color:var(--primary); }
+    .option-card p { font-size:13px; color:#4a6fa5; line-height:1.5; }
+
+    /* ─── PANELS de respuesta de Cato ─── */
+    .cato-panel { display:none; }
+    .cato-panel.visible { display:block; animation:fadeIn .35s ease; }
+    @keyframes fadeIn { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:none; } }
+
+    .panel-box {
+      margin-top:28px; background:var(--white);
+      border:1px solid rgba(113,178,226,.2); border-radius:var(--radius);
+      padding:28px 28px 24px; position:relative;
+    }
+    .panel-box::before {
+      content:''; position:absolute; top:-10px; left:36px;
+      border:10px solid transparent; border-bottom-color:rgba(113,178,226,.2);
+    }
+    .panel-close {
+      position:absolute; top:14px; right:14px;
+      background:none; border:none; cursor:pointer; font-size:18px; color:#aaa;
+      transition:var(--transition); padding:4px 8px;
+    }
+    .panel-close:hover { color:var(--primary); }
+
+    /* ─── S2: COTIZACIÓN ─── */
+    .quote-steps { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:24px; }
+    .step-pill {
+      background:var(--light); color:var(--secondary); font-size:12px; font-weight:700;
+      padding:5px 14px; border-radius:20px; letter-spacing:.04em;
+    }
+    .step-pill.active { background:var(--secondary); color:#fff; }
+
+    .service-chips { display:flex; flex-wrap:wrap; gap:10px; margin-bottom:22px; }
+    .chip {
+      background:var(--background); border:1.5px solid rgba(113,178,226,.25);
+      border-radius:24px; padding:8px 16px; font-size:13.5px; font-weight:600;
+      color:var(--text); cursor:pointer; transition:var(--transition);
+    }
+    .chip:hover { border-color:var(--accent); color:var(--secondary); }
+    .chip.selected { background:var(--secondary); border-color:var(--secondary); color:#fff; }
+
+    .form-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+    @media(max-width:600px) { .form-grid { grid-template-columns:1fr; } }
+    .form-group { display:flex; flex-direction:column; gap:6px; }
+    .form-group.full { grid-column:1/-1; }
+    .form-group label { font-size:12.5px; font-weight:700; color:var(--secondary); letter-spacing:.04em; text-transform:uppercase; }
+    .form-group input, .form-group textarea, .form-group select {
+      border:1.5px solid rgba(113,178,226,.25); border-radius:8px;
+      padding:11px 14px; font-size:14px; font-family:var(--fw-body);
+      color:var(--text); background:var(--background); transition:var(--transition);
+      outline:none;
+    }
+    .form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color:var(--accent); background:#fff; }
+    .form-group textarea { resize:vertical; min-height:100px; }
+
+    .btn-primary {
+      display:inline-flex; align-items:center; gap:9px;
+      background:var(--secondary); color:#fff; font-weight:700; font-size:14px;
+      padding:13px 28px; border-radius:10px; border:none; cursor:pointer;
+      transition:var(--transition); margin-top:6px;
+    }
+    .btn-primary:hover { background:var(--primary); transform:translateY(-2px); }
+    .btn-wa {
+      background:var(--whatsapp);
+    }
+    .btn-wa:hover { background:#1ebe5d; }
+
+    /* Mensaje de confirmación */
+    .confirm-box {
+      display:none; text-align:center; padding:32px 20px;
+    }
+    .confirm-box .confirm-icon { font-size:56px; margin-bottom:12px; }
+    .confirm-box h3 { font-family:var(--fw-display); font-size:22px; color:var(--primary); margin-bottom:8px; }
+    .confirm-box p { font-size:14px; color:#4a6fa5; line-height:1.7; }
+
+    /* ─── S3: CONTACTO DIRECTO ─── */
+    .contact-bg { background:var(--primary); }
+    .contact-bg .section-label { color:var(--accent); }
+    .contact-bg .section-title { color:#fff; }
+    .contact-cards { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:32px; }
+    @media(max-width:680px) { .contact-cards { grid-template-columns:1fr; } }
+    .contact-card {
+      background:rgba(255,255,255,.06); border:1px solid rgba(113,178,226,.18);
+      border-radius:var(--radius); padding:26px 22px;
+      display:flex; flex-direction:column; align-items:flex-start; gap:12px;
+      transition:var(--transition);
+    }
+    .contact-card:hover { background:rgba(113,178,226,.12); transform:translateY(-4px); }
+    .contact-card .cc-icon { font-size:32px; }
+    .contact-card h4 { font-size:15px; font-weight:700; color:#fff; }
+    .contact-card p { font-size:13px; color:rgba(202,232,255,.65); line-height:1.55; flex:1; }
+    .contact-card a.cc-btn {
+      display:inline-flex; align-items:center; gap:7px;
+      font-size:13px; font-weight:700; padding:9px 18px; border-radius:8px;
+      transition:var(--transition); color:#fff;
+    }
+    .cc-wa  { background:var(--whatsapp); }   .cc-wa:hover  { background:#1ebe5d; }
+    .cc-tel { background:var(--secondary); }   .cc-tel:hover { background:#2a5580; }
+    .cc-mail{ background:rgba(113,178,226,.25); border:1px solid rgba(113,178,226,.3); }
+    .cc-mail:hover { background:var(--accent); color:var(--primary); }
+
+    /* ─── S4: FAQ ─── */
+    .faq-list { display:flex; flex-direction:column; gap:10px; margin-top:28px; }
+    .faq-item { background:var(--white); border:1px solid rgba(113,178,226,.2); border-radius:var(--radius); overflow:hidden; }
+    .faq-q {
+      width:100%; display:flex; align-items:center; justify-content:space-between;
+      padding:16px 20px; background:none; border:none; cursor:pointer;
+      font-size:15px; font-weight:600; color:var(--primary); text-align:left;
+      font-family:var(--fw-body); transition:var(--transition); gap:12px;
+    }
+    .faq-q:hover { background:var(--light); }
+    .faq-q svg { width:18px; height:18px; flex-shrink:0; transition:transform .28s ease; color:var(--accent); }
+    .faq-item.open .faq-q svg { transform:rotate(180deg); }
+    .faq-a { max-height:0; overflow:hidden; transition:max-height .35s ease; }
+    .faq-a p { padding:4px 20px 18px; font-size:14px; color:#4a6fa5; line-height:1.75; }
+
+    /* ─── FOOTER ─── */
+    footer { background:var(--primary-dark); color:var(--light); padding:58px 24px 26px; border-top:3px solid var(--secondary); }
+    .footer-inner { max-width:1200px; margin:0 auto; display:grid; grid-template-columns:1fr 1.2fr 1fr; gap:40px; margin-bottom:42px; }
+    .footer-col h5 { font-family:var(--fw-display); font-size:16px; color:var(--accent); margin-bottom:15px; letter-spacing:.04em; }
+    .footer-col ul li { margin-bottom:9px; }
+    .footer-col ul li a { font-size:14px; color:var(--light); transition:var(--transition); }
+    .footer-col ul li a:hover { color:var(--accent); padding-left:5px; }
+    .footer-wa { display:inline-flex; align-items:center; gap:8px; background:var(--whatsapp); color:#fff; padding:9px 14px; border-radius:8px; font-size:13px; font-weight:700; margin-top:10px; transition:var(--transition); }
+    .footer-wa:hover { background:#1ebe5d; }
+    .footer-brand { text-align:center; }
+    .footer-brand-logo { width:220px; height:auto; margin:0 auto; display:block; filter:brightness(0) invert(1); }
+    .social-row { display:flex; gap:11px; flex-wrap:wrap; }
+    .social-btn { width:42px; height:42px; border-radius:10px; background:rgba(113,178,226,.08); border:1px solid rgba(113,178,226,.22); display:flex; align-items:center; justify-content:center; color:var(--light); transition:var(--transition); }
+    .social-btn:hover { background:var(--secondary); color:#fff; transform:translateY(-3px); }
+    .social-btn svg { width:20px; height:20px; }
+    .footer-bottom { max-width:1200px; margin:0 auto; border-top:1px solid rgba(113,178,226,.15); padding-top:18px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; font-size:12px; color:rgba(202,232,255,.38); }
+    .kommet-badge { display:inline-flex; align-items:center; gap:8px; font-size:11px; color:rgba(202,232,255,.4); transition:var(--transition); }
+    .kommet-badge:hover { color:rgba(202,232,255,.75); }
+    .kommet-logo-circle { width:30px; height:30px; border-radius:50%; background:#fff; display:flex; align-items:center; justify-content:center; box-shadow:0 1px 6px rgba(0,0,0,.25); overflow:hidden; }
+    .kommet-logo-circle img { width:22px; height:22px; object-fit:contain; }
+    @media(max-width:768px) { .footer-inner { grid-template-columns:1fr; text-align:center; } .social-row { justify-content:center; } .footer-bottom { justify-content:center; } }
+  </style>
+</head>
+<body>
+
+<!-- ════ HEADER ════ -->
+<header id="header">
+  <nav>
+    <a href="index.html" class="brand">
+      <img src="img/Logo_HIS_transparent.png" alt="HIS" class="brand-logo">
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html#productos">Productos y Servicios</a></li>
+      <li><a href="contacto.html" class="active">Contactos</a></li>
+      <li><a href="index.html#quienes">Acerca de Nosotros</a></li>
+      <li><a href="index.html#noticias">Blog de Noticias</a></li>
+      <li><a href="index.html#promociones">Video Promocional</a></li>
+    </ul>
+    <a href="https://wa.me/573502297326" target="_blank" class="nav-wa">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.555 4.116 1.527 5.847L.057 23.998l6.305-1.654A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.885 0-3.655-.51-5.18-1.4l-.37-.22-3.742.981.999-3.645-.242-.378A9.956 9.956 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+      Cotiza con nosotros
+    </a>
+    <button class="hamburger" id="hamburger" aria-label="Menú"><span></span><span></span><span></span></button>
+  </nav>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html#productos">Productos y Servicios</a>
+    <a href="contacto.html">Contactos</a>
+    <a href="index.html#quienes">Acerca de Nosotros</a>
+    <a href="index.html#noticias">Blog de Noticias</a>
+    <a href="index.html#promociones">Video Promocional</a>
+    <a href="https://wa.me/573502297326" target="_blank" class="nav-wa">Cotiza con nosotros</a>
+  </div>
+</header>
+
+<!-- WA float -->
+<a href="https://wa.me/573502297326" target="_blank" class="wa-float" title="WhatsApp">
+  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.555 4.116 1.527 5.847L.057 23.998l6.305-1.654A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.885 0-3.655-.51-5.18-1.4l-.37-.22-3.742.981.999-3.645-.242-.378A9.956 9.956 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+</a>
+
+<!-- ════ HERO ════ -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <h1>¿Cómo podemos<br>ayudarte?</h1>
+      <p>Cato está aquí para orientarte.<br>Elige lo que necesitas y te guiamos paso a paso.</p>
+    </div>
+    <!--
+      IMAGEN CATO — hero
+      Para añadir: reemplaza el contenido del .cato-hero por:
+        <img src="img/cato.png" alt="Cato" style="width:200px;height:auto;border-radius:50%;object-fit:cover;">
+    -->
+    <div class="cato-hero">
+      <img src="img/Galeria/Cato-1.png" alt="Cato">
+    </div>
+  </div>
+</section>
+
+<!-- ════ S1: OPCIONES ════ -->
+<section id="opciones">
+  <div class="section-inner">
+    <p class="section-label">Asistente virtual</p>
+    <h2 class="section-title">¿Qué necesitas hoy?</h2>
+
+    <div class="cato-says">  
+      <span class="cato-says-icon"><img src="img/Galeria/CatoIcon.png" alt="Cato"></span>
+      <span>¡Hola! Soy Cato, el asistente de HIS. Cuéntame qué necesitas y te oriento de inmediato.</span>
+    </div>
+
+    <div class="options-grid">
+      <div class="option-card" onclick="showPanel('cotizar')">
+        <span class="option-icon"></span>
+        <h3>Quiero cotizar</h3>
+        <p>Solicita una cotización para tu proyecto. Rápido y sin compromiso.</p>
+      </div>
+      <div class="option-card" onclick="showPanel('remodelar')">
+        <span class="option-icon"></span>
+        <h3>Quiero remodelar</h3>
+        <p>Cuéntanos qué espacio quieres transformar y te asesoramos.</p>
+      </div>
+      <div class="option-card" onclick="showPanel('servicios')">
+        <span class="option-icon"></span>
+        <h3>Ver servicios</h3>
+        <p>Conoce todo lo que hacemos: carpintería, instalaciones y más.</p>
+      </div>
+      <div class="option-card" onclick="showPanel('contacto-dir')">
+        <span class="option-icon"></span>
+        <h3>Contacto directo</h3>
+        <p>Habla con nosotros por WhatsApp, teléfono o correo.</p>
+      </div>
+      <div class="option-card" onclick="showPanel('ubicacion')">
+        <span class="option-icon"></span>
+        <h3>¿Dónde estamos?</h3>
+        <p>Horarios de atención y zona de cobertura.</p>
+      </div>
+      <div class="option-card" onclick="showPanel('faq-panel')">
+        <span class="option-icon"></span>
+        <h3>Preguntas frecuentes</h3>
+        <p>Respuestas rápidas a las dudas más comunes.</p>
+      </div>
+    </div>
+
+    <!-- Panel: Cotizar -->
+    <div class="cato-panel" id="panel-cotizar">
+      <div class="panel-box">
+        <button class="panel-close" onclick="closePanel('cotizar')" aria-label="Cerrar">✕</button>
+        <div class="cato-says" style="margin-bottom:20px;">
+          <span class="cato-says-icon"><img src="img/Galeria/Cato-2.png" alt="Cato"></span>
+          <span>¡Vamos a preparar tu solicitud! Elige el tipo de trabajo y cuéntame un poco más.</span>
+        </div>
+        <div id="quote-form">
+          <p style="font-size:13px;font-weight:700;color:var(--secondary);text-transform:uppercase;letter-spacing:.05em;margin-bottom:12px;">¿Qué tipo de trabajo necesitas?</p>
+          <div class="service-chips">
+            <span class="chip" onclick="toggleChip(this)"> Cocina integral</span>
+            <span class="chip" onclick="toggleChip(this)"> Baño y muebles</span>
+            <span class="chip" onclick="toggleChip(this)"> Puertas y closets</span>
+            <span class="chip" onclick="toggleChip(this)"> Carpintería general</span>
+            <span class="chip" onclick="toggleChip(this)"> Tubería PVC</span>
+            <span class="chip" onclick="toggleChip(this)"> Gas domiciliario</span>
+            <span class="chip" onclick="toggleChip(this)"> Pintura y acabados</span>
+            <span class="chip" onclick="toggleChip(this)"> Otro</span>
+          </div>
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Nombre</label>
+              <input type="text" id="q-nombre" placeholder="Tu nombre">
+            </div>
+            <div class="form-group">
+              <label>Teléfono / WhatsApp</label>
+              <input type="tel" id="q-tel" placeholder="300 000 0000">
+            </div>
+            <div class="form-group full">
+              <label>Descripción del proyecto</label>
+              <textarea id="q-desc" placeholder="Cuéntanos el espacio, dimensiones, materiales que te gustan, presupuesto aproximado..."></textarea>
+            </div>
+          </div>
+          <button class="btn-primary btn-wa" onclick="sendToWhatsApp()">
+            <svg viewBox="0 0 24 24" fill="currentColor" style="width:16px;height:16px"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.555 4.116 1.527 5.847L.057 23.998l6.305-1.654A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.885 0-3.655-.51-5.18-1.4l-.37-.22-3.742.981.999-3.645-.242-.378A9.956 9.956 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+            Enviar por WhatsApp
+          </button>
+        </div>
+        <div class="confirm-box" id="quote-confirm">
+          <div class="confirm-icon"><img src="img/Galeria/Cato-3.png" alt="Cato"></div>
+          <h3>¡Listo! Tu solicitud está preparada.</h3>
+          <p>Se abrirá WhatsApp con todos los datos de tu proyecto.<br>Nuestro equipo te responderá a la brevedad.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Panel: Remodelar -->
+    <div class="cato-panel" id="panel-remodelar">
+      <div class="panel-box">
+        <button class="panel-close" onclick="closePanel('remodelar')">✕</button>
+        <div class="cato-says" style="margin-bottom:20px;">
+          <span class="cato-says-icon"><img src="img/Galeria/Cato-2.png" alt="Cato"></span>
+          <span>¡Veamos qué podemos hacer por tu espacio! ¿Qué quieres remodelar?</span>
+        </div>
+        <div class="service-chips">
+          <span class="chip" onclick="openQuoteWith(this, 'Cocina integral')"> Cocina</span>
+          <span class="chip" onclick="openQuoteWith(this, 'Baño y muebles')"> Baño</span>
+          <span class="chip" onclick="openQuoteWith(this, 'Habitación completa')"> Habitación</span>
+          <span class="chip" onclick="openQuoteWith(this, 'Sala / comedor')"> Sala / comedor</span>
+          <span class="chip" onclick="openQuoteWith(this, 'Oficina o home office')"> Oficina</span>
+          <span class="chip" onclick="openQuoteWith(this, 'Otro espacio')"> Otro</span>
+        </div>
+        <p style="font-size:13px;color:#4a6fa5;margin-top:16px;">Al elegir un espacio te llevamos al formulario de cotización con ese servicio preseleccionado.</p>
+      </div>
+    </div>
+
+    <!-- Panel: Servicios -->
+    <div class="cato-panel" id="panel-servicios">
+      <div class="panel-box">
+        <button class="panel-close" onclick="closePanel('servicios')">✕</button>
+        <div class="cato-says" style="margin-bottom:20px;">
+          <span class="cato-says-icon"><img src="img/Galeria/Cato-2.png" alt="Cato"></span>
+          <span>¡Veamos qué podemos hacer! Esto es lo que ofrecemos en HIS.</span>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;">
+          <div style="padding:16px;background:var(--light);border-radius:10px;">
+            <div style="font-size:22px;margin-bottom:6px;"></div>
+            <strong style="color:var(--primary);font-size:14px;">Cocinas Integrales</strong>
+            <p style="font-size:13px;color:#4a6fa5;margin-top:4px;">Diseño, fabricación e instalación a medida.</p>
+          </div>
+          <div style="padding:16px;background:var(--light);border-radius:10px;">
+            <div style="font-size:22px;margin-bottom:6px;"></div>
+            <strong style="color:var(--primary);font-size:14px;">Muebles de Baño</strong>
+            <p style="font-size:13px;color:#4a6fa5;margin-top:4px;">Flotantes, empotrados o independientes.</p>
+          </div>
+          <div style="padding:16px;background:var(--light);border-radius:10px;">
+            <div style="font-size:22px;margin-bottom:6px;"></div>
+            <strong style="color:var(--primary);font-size:14px;">Puertas y Closets</strong>
+            <p style="font-size:13px;color:#4a6fa5;margin-top:4px;">Madera maciza, MDF o enchapada.</p>
+          </div>
+          <div style="padding:16px;background:var(--light);border-radius:10px;">
+            <div style="font-size:22px;margin-bottom:6px;"></div>
+            <strong style="color:var(--primary);font-size:14px;">Pintura y Acabados</strong>
+            <p style="font-size:13px;color:#4a6fa5;margin-top:4px;">Restauración de muebles y acabados mate o brillante.</p>
+          </div>
+          <div style="padding:16px;background:var(--light);border-radius:10px;">
+            <div style="font-size:22px;margin-bottom:6px;"></div>
+            <strong style="color:var(--primary);font-size:14px;">Tubería PVC</strong>
+            <p style="font-size:13px;color:#4a6fa5;margin-top:4px;">Redes de agua fría, caliente y desagüe.</p>
+          </div>
+          <div style="padding:16px;background:var(--light);border-radius:10px;">
+            <div style="font-size:22px;margin-bottom:6px;"></div>
+            <strong style="color:var(--primary);font-size:14px;">Gas Domiciliario</strong>
+            <p style="font-size:13px;color:#4a6fa5;margin-top:4px;">Instalación certificada con prueba de hermeticidad.</p>
+          </div>
+        </div>
+        <button class="btn-primary" style="margin-top:22px;" onclick="closePanel('servicios');showPanel('cotizar');">Solicitar cotización →</button>
+      </div>
+    </div>
+
+    <!-- Panel: Contacto directo -->
+    <div class="cato-panel" id="panel-contacto-dir">
+      <div class="panel-box">
+        <button class="panel-close" onclick="closePanel('contacto-dir')">✕</button>
+        <div class="cato-says" style="margin-bottom:20px;">
+          <span class="cato-says-icon"><img src="img/Galeria/Cato-2.png" alt="Cato"></span>
+          <span>¡Buena elección! Puedes hablar directamente con nuestro equipo por el canal que prefieras.</span>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:12px;">
+          <a href="https://wa.me/573502297326" target="_blank" class="btn-primary btn-wa">
+            <svg viewBox="0 0 24 24" fill="currentColor" style="width:16px;height:16px"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.555 4.116 1.527 5.847L.057 23.998l6.305-1.654A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.885 0-3.655-.51-5.18-1.4l-.37-.22-3.742.981.999-3.645-.242-.378A9.956 9.956 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+            WhatsApp
+          </a>
+          <!-- Reemplaza href="tel:+57XXXXXXXXXX" con el número real -->
+          <a href="tel:+573502297326" class="btn-primary" style="background:var(--secondary);"> Llamar</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Panel: Ubicación -->
+    <div class="cato-panel" id="panel-ubicacion">
+      <div class="panel-box">
+        <button class="panel-close" onclick="closePanel('ubicacion')">✕</button>
+        <div class="cato-says" style="margin-bottom:20px;">
+          <span class="cato-says-icon"><img src="img/Galeria/Cato-2.png" alt="Cato"></span>
+          <span>¡Aquí te cuento dónde estamos y cuándo puedes comunicarte con nosotros!</span>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+          <div>
+            <p style="font-weight:700;color:var(--primary);margin-bottom:8px;"> Zona de cobertura</p>
+            <p style="font-size:14px;color:#4a6fa5;line-height:1.7;">Bogotá D.C. y municipios cercanos.<br>Trabajamos a domicilio — nos desplazamos hasta tu espacio.</p>
+          </div>
+          <div>
+            <p style="font-weight:700;color:var(--primary);margin-bottom:8px;"> Horarios de atención</p>
+            <!-- Edita estos horarios según la disponibilidad real -->
+            <p style="font-size:14px;color:#4a6fa5;line-height:1.7;">Lunes a viernes: 8 am – 6 pm<br>Sábados: 8 am – 2 pm<br>Domingos: Cerrado</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Panel: FAQ -->
+    <div class="cato-panel" id="panel-faq-panel">
+      <div class="panel-box">
+        <button class="panel-close" onclick="closePanel('faq-panel')">✕</button>
+        <div class="cato-says" style="margin-bottom:20px;">
+          <span class="cato-says-icon"><img src="img/Galeria/CatoIcon.png" alt="Cato"></span>
+          <span>Tengo algunas respuestas que podrían ayudarte. ¿Cuál es tu duda?</span>
+        </div>
+        <div class="faq-list">
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">¿Trabajan a domicilio?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></button>
+            <div class="faq-a"><p>Sí, nos desplazamos hasta tu hogar en Bogotá y municipios cercanos para evaluar el proyecto sin costo adicional.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">¿Realizan trabajos personalizados?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></button>
+            <div class="faq-a"><p>Absolutamente. Cada proyecto se diseña a medida según el espacio, el gusto y el presupuesto del cliente. No trabajamos con diseños prefabricados.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">¿Cómo solicito una cotización?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></button>
+            <div class="faq-a"><p>Puedes usar el formulario de cotización en esta página, escribirnos por WhatsApp al <a href="https://wa.me/573502297326" style="color:var(--secondary);font-weight:700;">+57 350 229 7326</a>, o llamarnos directamente. La cotización inicial es sin costo.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">¿Cuánto tarda una remodelación?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></button>
+            <div class="faq-a"><p>Depende del alcance del proyecto. Una cocina integral típica toma entre 1 y 3 semanas. Proyectos más grandes pueden tomar más tiempo. Te lo indicamos al momento de la cotización.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">¿Qué materiales utilizan?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></button>
+            <div class="faq-a"><p>Trabajamos con madera maciza, MDF, melamina, enchapes naturales y materiales certificados para instalaciones. Siempre usamos productos de primera calidad seleccionados para cada proyecto.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">¿Tienen garantía en los trabajos?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></button>
+            <div class="faq-a"><p>Sí, todos nuestros proyectos incluyen garantía de mano de obra. Las condiciones específicas se detallan en el contrato de cada trabajo.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ════ S2: CONTACTO DIRECTO ════ -->
+<section class="contact-bg">
+  <div class="section-inner">
+    <p class="section-label">¿Prefieres hablar directamente?</p>
+    <h2 class="section-title">Contáctanos ahora</h2>
+    <div class="contact-cards">
+      <div class="contact-card">
+        <span class="cc-icon"></span>
+        <h4>WhatsApp</h4>
+        <p>La forma más rápida. Escríbenos y te respondemos a la brevedad.</p>
+        <a href="https://wa.me/573502297326" target="_blank" class="cc-btn cc-wa">Abrir WhatsApp →</a>
+      </div>
+      <div class="contact-card">
+        <span class="cc-icon"></span>
+        <h4>Llamar</h4>
+        <!-- Reemplaza el número por el real -->
+        <p>Habla directamente con un miembro de nuestro equipo.</p>
+        <a href="tel:+573502297326" class="cc-btn cc-tel">Llamar ahora →</a>
+      </div>
+      
+    </div>
+  </div>
+</section>
+
+<!-- ════ S3: FAQ ════ -->
+<section id="faq">
+  <div class="section-inner">
+    <p class="section-label">Preguntas frecuentes</p>
+    <h2 class="section-title">Lo que más nos preguntan</h2>
+    <div class="cato-says" style="margin-top:16px;">
+      <span class="cato-says-icon"><img src="img/Galeria/CatoIcon.png" alt="Cato"></span>
+      <span>Aquí están las respuestas a las preguntas más comunes. Si no encuentras la tuya, escríbenos.</span>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">¿Trabajan a domicilio?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></button>
+        <div class="faq-a"><p>Sí, nos desplazamos hasta tu hogar en Bogotá y municipios cercanos para evaluar el proyecto sin costo adicional.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">¿Realizan trabajos personalizados?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></button>
+        <div class="faq-a"><p>Absolutamente. Cada proyecto se diseña a medida según el espacio, el gusto y el presupuesto del cliente.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">¿Cómo solicito una cotización?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></button>
+        <div class="faq-a"><p>Usa el formulario "Quiero cotizar" arriba en esta página, escríbenos por WhatsApp o llámanos. La cotización inicial es sin costo.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">¿Cuánto tarda una remodelación?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></button>
+        <div class="faq-a"><p>Una cocina integral típica toma entre 1 y 3 semanas. Te indicamos el tiempo estimado al momento de la cotización.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">¿Qué materiales utilizan?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></button>
+        <div class="faq-a"><p>Madera maciza, MDF, melamina, enchapes naturales y materiales certificados. Siempre productos de primera calidad seleccionados para cada proyecto.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">¿Tienen garantía en los trabajos?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></button>
+        <div class="faq-a"><p>Sí. Todos los proyectos incluyen garantía de mano de obra. Las condiciones específicas se detallan en el contrato de cada trabajo.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ FOOTER ════ -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-col">
+      <h5>Navegación</h5>
+      <ul>
+        <li><a href="index.html#quienes">Acerca de Nosotros</a></li>
+        <li><a href="index.html#promociones">Video Promocional</a></li>
+        <li><a href="index.html#noticias">Blog de Noticias</a></li>
+        <li><a href="index.html#productos">Productos y Servicios</a></li>
+      </ul>
+      <a href="https://wa.me/573502297326" target="_blank" class="footer-wa">
+        <svg viewBox="0 0 24 24" fill="currentColor" style="width:15px;height:15px"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.555 4.116 1.527 5.847L.057 23.998l6.305-1.654A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.885 0-3.655-.51-5.18-1.4l-.37-.22-3.742.981.999-3.645-.242-.378A9.956 9.956 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+        Cotiza con nosotros
+      </a>
+    </div>
+    <div class="footer-col footer-brand">
+      <img src="img/Logo_HIS_transparent.png" alt="HIS" class="footer-brand-logo">
+    </div>
+    <div class="footer-col">
+      <h5>Redes:</h5>
+      <div class="social-row">
+        <a href="https://www.youtube.com/channel/UC6UhnWTgVGoG7AE0VJ17uBQ" class="social-btn" title="YouTube" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a>
+        <a href="https://www.instagram.com/somos.his" class="social-btn" title="Instagram" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
+        <a href="https://www.tiktok.com/@his_hgm?_r=1&_t=ZS-9Aun6NVzA2x" class="social-btn" title="TikTok" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.3 6.3 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.75a4.85 4.85 0 01-1.01-.06z"/></svg></a>
+        <a href="https://www.facebook.com/share/19fk7skgeM/" class="social-btn" title="Facebook" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <!--
+      BOTÓN KOMMET
+      Link: reemplaza href="#" por href="https://instagram.com/TU_CUENTA"
+      Logo: reemplaza el <img> src por la ruta real
+    -->
+    <a href="mailto:kommet.crew@gmail.com" target="_blank" class="kommet-badge" title="Diseño web por Kommet">
+      Diseño web por
+      <span class="kommet-logo-circle">
+        <img src="img/kommetLogoTransparent.png" alt="Kommet">
+      </span>
+      Kommet
+    </a>
+    <p>&copy; 2026 HIS — Hogar, Interiores y Soluciones. Todos los derechos reservados.</p>
+  </div>
+</footer>
+
+<script>
+  // ── Header shadow
+  window.addEventListener('scroll', () => {
+    document.getElementById('header').style.boxShadow =
+      window.scrollY > 20 ? '0 4px 24px rgba(0,0,0,.35)' : 'none';
+  });
+
+  // ── Hamburger
+  const ham = document.getElementById('hamburger');
+  const mob = document.getElementById('mobileMenu');
+  ham.addEventListener('click', () => { ham.classList.toggle('open'); mob.classList.toggle('open'); });
+  mob.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { ham.classList.remove('open'); mob.classList.remove('open'); }));
+
+  // ── Panels
+  function showPanel(id) {
+    // Highlight active card
+    document.querySelectorAll('.option-card').forEach(c => c.classList.remove('active'));
+    event && event.currentTarget && event.currentTarget.classList.add('active');
+
+    // Hide all panels
+    document.querySelectorAll('.cato-panel').forEach(p => p.classList.remove('visible'));
+
+    // Show target
+    const panel = document.getElementById('panel-' + id);
+    if (panel) {
+      panel.classList.add('visible');
+      setTimeout(() => panel.scrollIntoView({ behavior:'smooth', block:'nearest' }), 50);
+    }
+  }
+  function closePanel(id) {
+    const panel = document.getElementById('panel-' + id);
+    if (panel) panel.classList.remove('visible');
+    document.querySelectorAll('.option-card').forEach(c => c.classList.remove('active'));
+  }
+
+  // ── Chip toggle
+  function toggleChip(el) { el.classList.toggle('selected'); }
+
+  // ── Open quote with preselected service
+  function openQuoteWith(el, service) {
+    closePanel('remodelar');
+    showPanel('cotizar');
+    // Preselect matching chip
+    setTimeout(() => {
+      document.querySelectorAll('#panel-cotizar .chip').forEach(c => {
+        if (c.textContent.includes(service.split(' ')[0])) c.classList.add('selected');
+      });
+    }, 100);
+  }
+
+  // ── Send to WhatsApp
+  function sendToWhatsApp() {
+    const nombre = document.getElementById('q-nombre').value.trim() || 'Sin nombre';
+    const tel    = document.getElementById('q-tel').value.trim()    || 'No indicado';
+    const desc   = document.getElementById('q-desc').value.trim()   || 'Sin descripción';
+    const chips  = [...document.querySelectorAll('#panel-cotizar .chip.selected')].map(c => c.textContent.trim()).join(', ') || 'No especificado';
+
+    const msg = `¡Hola HIS! Me llegó a través de Cato 🐱\n\n*Nombre:* ${nombre}\n*Teléfono:* ${tel}\n*Servicio:* ${chips}\n*Proyecto:* ${desc}\n\n¿Podrían darme más información?`;
+    const url = `https://wa.me/573502297326?text=${encodeURIComponent(msg)}`;
+
+    document.getElementById('quote-form').style.display = 'none';
+    document.getElementById('quote-confirm').style.display = 'block';
+    setTimeout(() => window.open(url, '_blank'), 800);
+  }
+
+  // ── FAQ toggle
+  function toggleFaq(btn) {
+    const item = btn.closest('.faq-item');
+    const answer = item.querySelector('.faq-a');
+    const isOpen = item.classList.contains('open');
+    // Close all
+    document.querySelectorAll('.faq-item.open').forEach(i => {
+      i.classList.remove('open');
+      i.querySelector('.faq-a').style.maxHeight = null;
+    });
+    // Open clicked if was closed
+    if (!isOpen) {
+      item.classList.add('open');
+      answer.style.maxHeight = answer.scrollHeight + 'px';
+    }
+  }
+</script>
+
+</body>
+</html>
